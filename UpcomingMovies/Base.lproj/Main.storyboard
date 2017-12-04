@@ -22,7 +22,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="90" id="BhC-HF-wFt">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="UpcomingMovieCell" rowHeight="90" id="BhC-HF-wFt" customClass="UpcomingMovieTableViewCell" customModule="UpcomingMovies" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="375" height="90"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="BhC-HF-wFt" id="HKH-0I-eJj">
@@ -89,6 +89,11 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
+                                            <outlet property="countdownLabel" destination="HAH-8w-Tso" id="8BT-yF-Aq2"/>
+                                            <outlet property="movieNameLabel" destination="PYM-DY-XzH" id="chA-65-f1d"/>
+                                            <outlet property="posterImageView" destination="KEg-ag-3X9" id="nNa-h1-Yla"/>
+                                            <outlet property="releaseDateLabel" destination="OIL-qk-HBt" id="WW6-AO-6J8"/>
+                                            <outlet property="untilOrSinceLabel" destination="0x1-d1-WII" id="pvh-kM-kdC"/>
                                             <segue destination="Yo3-fy-LX8" kind="show" id="blb-cr-E9j"/>
                                         </connections>
                                     </tableViewCell>
@@ -105,22 +110,30 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <navigationItem key="navigationItem" title="Upcoming" id="Dmo-Pp-pAZ">
-                        <barButtonItem key="leftBarButtonItem" title="Settings" id="FxK-a3-n5p"/>
+                        <barButtonItem key="leftBarButtonItem" title="Settings" id="FxK-a3-n5p">
+                            <connections>
+                                <action selector="goToSettings:" destination="BYZ-38-t0r" id="CHr-aN-pM6"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="Fwg-Dc-BD6">
                             <connections>
+                                <action selector="addMovie:" destination="BYZ-38-t0r" id="kjG-2j-QxD"/>
                                 <segue destination="pfl-14-204" kind="presentation" id="Rbf-5O-Yc1"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="tableView" destination="sey-Iu-ztl" id="2Vv-Rm-iWT"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="165.59999999999999" y="53.523238380809602"/>
         </scene>
-        <!--View Controller-->
+        <!--Movie Detail View Controller-->
         <scene sceneID="zy6-Mf-J7T">
             <objects>
-                <viewController id="Yo3-fy-LX8" sceneMemberID="viewController">
+                <viewController id="Yo3-fy-LX8" customClass="MovieDetailViewController" customModule="UpcomingMovies" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="V11-Zi-k4H">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -131,9 +144,17 @@
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lFQ-Oa-K37">
                                 <rect key="frame" x="0.0" y="623" width="375" height="44"/>
                                 <items>
-                                    <barButtonItem systemItem="action" id="h1H-qD-o62"/>
+                                    <barButtonItem systemItem="action" id="h1H-qD-o62">
+                                        <connections>
+                                            <action selector="shareMovie:" destination="Yo3-fy-LX8" id="6tX-K4-eot"/>
+                                        </connections>
+                                    </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="uwO-8W-YjR"/>
-                                    <barButtonItem systemItem="trash" id="0TZ-g2-xCG"/>
+                                    <barButtonItem systemItem="trash" id="0TZ-g2-xCG">
+                                        <connections>
+                                            <action selector="deleteMovie:" destination="Yo3-fy-LX8" id="DHh-A9-cgQ"/>
+                                        </connections>
+                                    </barButtonItem>
                                 </items>
                             </toolbar>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7Pl-Ha-8g7">
@@ -299,6 +320,16 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="hiC-Y6-Dur"/>
                     </view>
+                    <connections>
+                        <outlet property="backgroundImageView" destination="L2F-ep-liS" id="mag-2i-qUA"/>
+                        <outlet property="daysLabel" destination="cq4-4B-dP3" id="sPw-vT-aKE"/>
+                        <outlet property="hoursLabel" destination="Msu-RX-u11" id="VwT-ll-STo"/>
+                        <outlet property="minutesLabel" destination="ksK-SV-VbR" id="XH8-uV-YBb"/>
+                        <outlet property="monthsLabel" destination="lFo-sj-F00" id="sbN-KU-grx"/>
+                        <outlet property="releaseDateLabel" destination="sZ7-Fo-oBZ" id="DsW-d0-iHc"/>
+                        <outlet property="secondsLabel" destination="njH-pN-H5M" id="n6N-bQ-NCb"/>
+                        <outlet property="yearsLabel" destination="LdO-J3-dcI" id="PeF-Oj-eqm"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="k6m-Go-UET" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -307,7 +338,7 @@
         <!--Add Upcoming Movie-->
         <scene sceneID="cde-PB-fuc">
             <objects>
-                <viewController id="gcC-Qq-s18" sceneMemberID="viewController">
+                <viewController id="gcC-Qq-s18" customClass="AddMovieViewController" customModule="UpcomingMovies" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Dty-YL-XEl">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -316,7 +347,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="90" id="EP9-M0-1FZ">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="MovieToAddCell" rowHeight="90" id="EP9-M0-1FZ" customClass="MovieToAddTableViewCell" customModule="UpcomingMovies" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="375" height="90"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="EP9-M0-1FZ" id="Rs8-iC-QhJ">
@@ -346,6 +377,8 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
+                                            <outlet property="movieNameLabel" destination="58L-ct-Moh" id="5yz-Z8-RZ5"/>
+                                            <outlet property="posterImageView" destination="bzW-wa-2TO" id="esB-7x-P9F"/>
                                             <segue destination="tgv-6t-8RT" kind="show" id="NdQ-YA-Ouv"/>
                                         </connections>
                                     </tableViewCell>
@@ -363,17 +396,24 @@
                     </view>
                     <navigationItem key="navigationItem" title="Add Upcoming Movie" id="m4a-dk-ArV">
                         <barButtonItem key="backBarButtonItem" title="Back" id="Ama-yE-Tga"/>
-                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="fhT-My-i6a"/>
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="fhT-My-i6a">
+                            <connections>
+                                <action selector="cancelAddMovie:" destination="gcC-Qq-s18" id="9GY-BG-Dtj"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="tableView" destination="uj5-gx-ETp" id="2O5-Q8-haL"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rJ6-nK-Nqy" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1727" y="-304"/>
         </scene>
-        <!--View Controller-->
+        <!--Movie To Add View Controller-->
         <scene sceneID="yXp-t9-iKN">
             <objects>
-                <viewController id="tgv-6t-8RT" sceneMemberID="viewController">
+                <viewController id="tgv-6t-8RT" customClass="MovieToAddViewController" customModule="UpcomingMovies" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="eEJ-QT-DdH">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -410,6 +450,9 @@
                                 <state key="normal" title="ADD">
                                     <color key="titleColor" red="0.99061953011458725" green="0.9992441832871708" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
+                                <connections>
+                                    <action selector="addMovie:" destination="tgv-6t-8RT" eventType="touchUpInside" id="KW2-vR-HRE"/>
+                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Overview:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xf5-UA-LUw">
                                 <rect key="frame" x="16" y="339" width="343" height="21"/>
@@ -452,6 +495,14 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="veC-Dz-MD7"/>
                     </view>
+                    <connections>
+                        <outlet property="addButton" destination="jb6-7m-w5v" id="v8a-5n-vBK"/>
+                        <outlet property="movieGenresLabel" destination="ETD-Ag-fdC" id="MPM-hQ-kKj"/>
+                        <outlet property="movieNameLabel" destination="yvc-bV-MWN" id="2HV-ph-cVD"/>
+                        <outlet property="moviePosterImageView" destination="5Bz-vS-Eu4" id="y5r-fC-pes"/>
+                        <outlet property="overviewTextView" destination="24J-rF-ZNA" id="Wrw-rh-RBq"/>
+                        <outlet property="releaseDateLabel" destination="Z3t-4P-DJk" id="c2X-qc-6vt"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1Kh-k0-48v" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
