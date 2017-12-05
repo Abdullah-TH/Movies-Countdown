@@ -10,21 +10,7 @@ import Foundation
 
 class TheMovieDBAPIManager
 {
-    static func printRequestResult()
-    {
-        let request = TheMovieDBAPIRouter.discoverUpcomingMovies(page: 40, minReleaseDate: "2017-12-01").asURLRequest()
-        print(request.url!.absoluteString)
-        URLSession.shared.dataTask(with: request) { (data, response, error) in
-            
-            print(error ?? "No error")
-            let statusCode = (response as! HTTPURLResponse).statusCode
-            print("Status Code: \(statusCode)")
-            let json = try? JSONSerialization.jsonObject(with: data!, options: .allowFragments)
-            print(json ?? "error parsing")
-        }.resume()
-    }
-    
-    static func getUpcomingMovies(page: Int, minReleaseDate: String, completion: @escaping (_ errorMessage: String?, _ movies: [Movie]?) -> Void)
+    static func getUpcomingMovies(page: Int, minReleaseDate: String, completion: @escaping (_ errorMessage: String?, _ movies: [Movie]?, _ totalPages: Int?) -> Void)
     {
         let request = TheMovieDBAPIRouter.discoverUpcomingMovies(page: page, minReleaseDate: minReleaseDate).asURLRequest()
         let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
@@ -33,37 +19,43 @@ class TheMovieDBAPIManager
             
             guard error == nil else
             {
-                completion(error!.localizedDescription, nil)
+                completion(error!.localizedDescription, nil, nil)
                 return
             }
             
             guard let statusCode = (response as? HTTPURLResponse)?.statusCode, statusCode == 200 else
             {
-                completion("Got status code: \((response as! HTTPURLResponse).statusCode)", nil)
+                completion("Got status code: \((response as! HTTPURLResponse).statusCode)", nil, nil)
                 return
             }
             
             guard let data = data else
             {
-                completion("No data returned", nil)
+                completion("No data returned", nil, nil)
                 return
             }
             
             guard let json = try? JSONSerialization.jsonObject(with: data, options: []) else
             {
-                completion("Cannot parse JSON", nil)
+                completion("Cannot parse JSON", nil, nil)
                 return
             }
             
             guard let jsonDictionary = json as? [String: Any] else
             {
-                completion("Cannot convert JSON to Foundation object [String: Any]", nil)
+                completion("Cannot convert JSON to Foundation object [String: Any]", nil, nil)
                 return
             }
             
             guard let resultArray = jsonDictionary["results"] as? [[String: Any]] else
             {
-                completion("Cannot find the results key", nil)
+                completion("Cannot find the results key", nil, nil)
+                return
+            }
+            
+            guard let totalPages = jsonDictionary["total_pages"] as? Int else
+            {
+                completion("Cannot find the total_pages key", nil, nil)
                 return
             }
             
@@ -81,7 +73,7 @@ class TheMovieDBAPIManager
                 }
             }
             
-            completion(nil, movies)
+            completion(nil, movies, totalPages)
         }
         
         task.resume()
