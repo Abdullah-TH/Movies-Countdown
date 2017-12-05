@@ -19,6 +19,7 @@ class UpcomingMoviesViewController: UIViewController
     override func viewDidLoad()
     {
         super.viewDidLoad()
+        TheMovieDBAPIManager.printRequestResult()
     }
 
     // MARK: Actions

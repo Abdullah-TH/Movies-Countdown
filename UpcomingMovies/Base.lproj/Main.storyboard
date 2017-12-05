@@ -383,6 +383,10 @@
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="gcC-Qq-s18" id="3Rs-Xz-DwZ"/>
+                                    <outlet property="delegate" destination="gcC-Qq-s18" id="Bro-47-dlR"/>
+                                </connections>
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
