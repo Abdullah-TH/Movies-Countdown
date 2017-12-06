@@ -29,6 +29,16 @@ class AddMovieViewController: UIViewController
         downloadUpcomingMovies()
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?)
+    {
+        if segue.identifier == "AddMovieToMovieToAdd"
+        {
+            let movieToAddVC = segue.destination as! MovieToAddViewController
+            let row = sender as! Int
+            movieToAddVC.movie = upcomingMovies[row]
+        }
+    }
+    
     // MARK: Helper Methods
     
     private func downloadUpcomingMovies()
@@ -49,7 +59,7 @@ class AddMovieViewController: UIViewController
                 self.totalPages = totalPages
                 self.currentPage += 1
                 self.upcomingMovies.append(contentsOf: movies!)
-                self.moviePosters.append(contentsOf: repeatElement(nil, count: movies!.count))
+                self.moviePosters.append(contentsOf: repeatElement(UIImage(named: "default-image-small"), count: movies!.count))
                 DispatchQueue.main.async {
                     self.tableView.reloadData()
                 }
@@ -95,7 +105,7 @@ extension AddMovieViewController: UITableViewDataSource
         cell.movieNameLabel.text = movie.title
         cell.posterImageView.image = moviePosters[indexPath.row]
         
-        if moviePosters[indexPath.row] == nil
+        if moviePosters[indexPath.row] == #imageLiteral(resourceName: "default-image-small")
         {
             downloadMoviePoster(for: indexPath.row, cell: cell, path: movie.posterPath)
         }
@@ -120,6 +130,11 @@ extension AddMovieViewController: UITableViewDelegate
         {
             downloadUpcomingMovies()
         }
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
+    {
+        performSegue(withIdentifier: "AddMovieToMovieToAdd", sender: indexPath.row)
     }
     
 }

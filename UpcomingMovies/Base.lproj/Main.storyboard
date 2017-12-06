@@ -354,7 +354,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="342" height="89.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="bzW-wa-2TO">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="default-image-small" translatesAutoresizingMaskIntoConstraints="NO" id="bzW-wa-2TO">
                                                     <rect key="frame" x="8" y="10" width="45" height="68"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="68" id="sv2-aR-UN8"/>
@@ -379,7 +379,6 @@
                                         <connections>
                                             <outlet property="movieNameLabel" destination="58L-ct-Moh" id="5yz-Z8-RZ5"/>
                                             <outlet property="posterImageView" destination="bzW-wa-2TO" id="esB-7x-P9F"/>
-                                            <segue destination="tgv-6t-8RT" kind="show" id="NdQ-YA-Ouv"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -408,6 +407,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="tableView" destination="uj5-gx-ETp" id="2O5-Q8-haL"/>
+                        <segue destination="tgv-6t-8RT" kind="show" identifier="AddMovieToMovieToAdd" id="bA3-sV-JwQ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rJ6-nK-Nqy" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -422,26 +422,19 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="5Bz-vS-Eu4">
-                                <rect key="frame" x="16" y="80" width="150" height="227"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="150" id="4Ng-XC-cHT"/>
-                                    <constraint firstAttribute="height" constant="227" id="xEk-tm-R2E"/>
-                                </constraints>
-                            </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Movie Name" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yvc-bV-MWN">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Movie Name" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yvc-bV-MWN">
                                 <rect key="frame" x="174" y="80" width="189" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Genre 1 | Genre 2 | Genre 3 | Genre 4" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ETD-Ag-fdC">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Genre 1 | Genre 2 | Genre 3 | Genre 4" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ETD-Ag-fdC">
                                 <rect key="frame" x="174" y="109" width="189" height="41"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Releasing 12 Aug 2019" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Z3t-4P-DJk">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Releasing 12 Aug 2019" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Z3t-4P-DJk">
                                 <rect key="frame" x="174" y="158" width="189" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
@@ -464,13 +457,20 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="24J-rF-ZNA">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="24J-rF-ZNA">
                                 <rect key="frame" x="16" y="368" width="343" height="279"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="default-image-large" translatesAutoresizingMaskIntoConstraints="NO" id="5Bz-vS-Eu4">
+                                <rect key="frame" x="16" y="80" width="150" height="227"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="150" id="4Ng-XC-cHT"/>
+                                    <constraint firstAttribute="height" constant="227" id="xEk-tm-R2E"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -549,4 +549,8 @@
             <point key="canvasLocation" x="982" y="-304"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="default-image-large" width="150" height="227"/>
+        <image name="default-image-small" width="75" height="113"/>
+    </resources>
 </document>
