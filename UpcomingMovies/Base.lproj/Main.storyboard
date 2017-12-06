@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="x9P-15-LTX">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="x9P-15-LTX">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13174"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -30,7 +30,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="KEg-ag-3X9">
-                                                    <rect key="frame" x="10" y="10" width="45" height="68"/>
+                                                    <rect key="frame" x="17" y="10" width="45" height="68"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="68" id="eWp-Og-nGR"/>
                                                         <constraint firstAttribute="width" constant="45" id="sYm-2V-9Zx"/>
@@ -70,7 +70,7 @@
                                                     </constraints>
                                                 </view>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="A Movie That Has An Absolutely Ridiculous Long Movie Name" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PYM-DY-XzH">
-                                                    <rect key="frame" x="63" y="10" width="204" height="68"/>
+                                                    <rect key="frame" x="70" y="13" width="197" height="62.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -355,28 +355,40 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="default-image-small" translatesAutoresizingMaskIntoConstraints="NO" id="bzW-wa-2TO">
-                                                    <rect key="frame" x="8" y="10" width="45" height="68"/>
+                                                    <rect key="frame" x="15" y="10" width="45" height="68"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="68" id="sv2-aR-UN8"/>
                                                         <constraint firstAttribute="width" constant="45" id="tFH-mY-zfO"/>
                                                     </constraints>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="A Movie That Has An Absolutely Ridiculous Long Movie Name" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="58L-ct-Moh">
-                                                    <rect key="frame" x="61" y="23.5" width="265" height="41"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
+                                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="UbZ-Vz-2pt">
+                                                    <rect key="frame" x="68" y="24" width="270" height="41.5"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Movie Name" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="58L-ct-Moh">
+                                                            <rect key="frame" x="0.0" y="0.0" width="270" height="20.5"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Genres" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3zr-8j-aWf">
+                                                            <rect key="frame" x="0.0" y="24.5" width="270" height="17"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                            <color key="textColor" red="0.39170445725707814" green="0.39170445725707814" blue="0.39170445725707814" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                </stackView>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="58L-ct-Moh" firstAttribute="leading" secondItem="bzW-wa-2TO" secondAttribute="trailing" constant="8" id="6VP-09-TFE"/>
+                                                <constraint firstAttribute="trailing" secondItem="UbZ-Vz-2pt" secondAttribute="trailing" constant="4" id="4Ax-TQ-Ohg"/>
                                                 <constraint firstItem="bzW-wa-2TO" firstAttribute="centerY" secondItem="Rs8-iC-QhJ" secondAttribute="centerY" id="9Po-Se-FVf"/>
-                                                <constraint firstAttribute="trailingMargin" secondItem="58L-ct-Moh" secondAttribute="trailing" constant="8" id="Dru-9p-Sxh"/>
-                                                <constraint firstItem="58L-ct-Moh" firstAttribute="centerY" secondItem="Rs8-iC-QhJ" secondAttribute="centerY" id="hQL-Bp-vpl"/>
+                                                <constraint firstItem="UbZ-Vz-2pt" firstAttribute="leading" secondItem="bzW-wa-2TO" secondAttribute="trailing" constant="8" id="TQK-e9-Eiu"/>
+                                                <constraint firstItem="UbZ-Vz-2pt" firstAttribute="centerY" secondItem="Rs8-iC-QhJ" secondAttribute="centerY" id="i55-PB-34c"/>
                                                 <constraint firstItem="bzW-wa-2TO" firstAttribute="leading" secondItem="Rs8-iC-QhJ" secondAttribute="leadingMargin" id="iJM-OA-wD4"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
+                                            <outlet property="genresLabel" destination="3zr-8j-aWf" id="Tsd-Oy-fx9"/>
                                             <outlet property="movieNameLabel" destination="58L-ct-Moh" id="5yz-Z8-RZ5"/>
                                             <outlet property="posterImageView" destination="bzW-wa-2TO" id="esB-7x-P9F"/>
                                         </connections>
@@ -461,7 +473,7 @@
                                 <rect key="frame" x="16" y="368" width="343" height="279"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="default-image-large" translatesAutoresizingMaskIntoConstraints="NO" id="5Bz-vS-Eu4">

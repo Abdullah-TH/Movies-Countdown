@@ -29,7 +29,19 @@ class MovieToAddViewController: UIViewController
     {
         super.viewDidLoad()
         
-        movieGenresLabel.text = ""
+        movieGenresLabel.text = "" // to remove interface builder default text
+        for genre in movie.genres
+        {
+            if movieGenresLabel.text == ""
+            {
+                movieGenresLabel.text?.append(genre)
+            }
+            else
+            {
+                movieGenresLabel.text?.append(" - \(genre)")
+            }
+        }
+        
         movieNameLabel.text = movie.title
         releaseDateLabel.text = "Releasing " + movie.releaseDateString
         overviewTextView.text = movie.overview

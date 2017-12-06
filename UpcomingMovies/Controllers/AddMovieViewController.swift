@@ -17,6 +17,7 @@ class AddMovieViewController: UIViewController
     // MARK: Properties
     
     var upcomingMovies = [Movie]()
+    var genres: [[String: Any]]!
     var moviePosters = [UIImage?]()
     var currentPage = 1
     var totalPages: Int!
@@ -43,15 +44,12 @@ class AddMovieViewController: UIViewController
     
     private func downloadUpcomingMovies()
     {
-        TheMovieDBAPIManager.getUpcomingMovies(page: currentPage, minReleaseDate: "2017-12-01") { (error, movies, totalPages) in
+        TheMovieDBAPIManager.getUpcomingMovies(page: currentPage, minReleaseDate: "2017-12-01") { (errorMessage, movies, totalPages) in
             
-            if let error = error
+            if let error = errorMessage
             {
-                let alertController = UIAlertController(title: "Error", message: error, preferredStyle: .alert)
-                let okAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
-                alertController.addAction(okAction)
                 DispatchQueue.main.async {
-                    self.present(alertController, animated: true, completion: nil)
+                    self.showAlertMessage(title: "Error", message: error)
                 }
             }
             else
@@ -82,6 +80,14 @@ class AddMovieViewController: UIViewController
             }
         }
     }
+    
+    private func showAlertMessage(title: String?, message: String?)
+    {
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+        alertController.addAction(okAction)
+        present(alertController, animated: true, completion: nil)
+    }
 
     // MARK: Actions
     
@@ -102,8 +108,21 @@ extension AddMovieViewController: UITableViewDataSource
     {
         let cell = tableView.dequeueReusableCell(withIdentifier: "MovieToAddCell", for: indexPath) as! MovieToAddTableViewCell
         let movie = upcomingMovies[indexPath.row]
-        cell.movieNameLabel.text = movie.title
         cell.posterImageView.image = moviePosters[indexPath.row]
+        cell.movieNameLabel.text = movie.title
+        
+        cell.genresLabel.text = ""
+        for genre in movie.genres
+        {
+            if cell.genresLabel.text == ""
+            {
+                cell.genresLabel.text?.append(genre)
+            }
+            else
+            {
+                cell.genresLabel.text?.append(" - \(genre)")
+            }
+        }
         
         if moviePosters[indexPath.row] == #imageLiteral(resourceName: "default-image-small")
         {

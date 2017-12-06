@@ -13,7 +13,7 @@ struct Movie
     var id: Int
     var title: String
     var posterPath: String
-    var genreIDs: [Int]
+    var genres: [String]
     var overview: String
     var releaseDateString: String 
 }

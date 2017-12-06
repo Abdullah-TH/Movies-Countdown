@@ -13,6 +13,7 @@ enum TheMovieDBAPIRouter
     // Possible requests
     case discoverMovies
     case discoverUpcomingMovies(page: Int, minReleaseDate: String)
+    case getGenres
     
     // Base endpoint
     static let baseURLString = "https://api.themoviedb.org/3"
@@ -22,7 +23,7 @@ enum TheMovieDBAPIRouter
         
         switch self
         {
-        case .discoverMovies, .discoverUpcomingMovies:
+        case .discoverMovies, .discoverUpcomingMovies, .getGenres:
             return "GET"
         }
     }
@@ -33,6 +34,8 @@ enum TheMovieDBAPIRouter
         {
         case .discoverMovies, .discoverUpcomingMovies:
             return "/discover/movie"
+        case .getGenres:
+            return "/genre/movie/list"
         }
     }
     
@@ -44,13 +47,13 @@ enum TheMovieDBAPIRouter
         
         switch self
         {
-        case .discoverMovies:
-            break
         case .discoverUpcomingMovies(page: let page, minReleaseDate: let minReleaseDate):
             queryItems.append(URLQueryItem(name: "language", value: "en"))
             queryItems.append(URLQueryItem(name: "sort_by", value: "primary_release_date.asc"))
             queryItems.append(URLQueryItem(name: "page", value: "\(page)"))
             queryItems.append(URLQueryItem(name: "primary_release_date.gte", value: "\(minReleaseDate)"))
+        default:
+            break
         }
         
         return queryItems
@@ -60,7 +63,7 @@ enum TheMovieDBAPIRouter
     var parameters: [String: Any]? {
         switch self
         {
-        case .discoverMovies, .discoverUpcomingMovies:
+        default:
             return nil
         }
     }
