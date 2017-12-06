@@ -6,10 +6,13 @@
 //  Copyright © 2017 Abdullah Althobetey. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 struct Movie
 {
+    static var userMovies = [Movie]()
+    static var userMoviePosters = [UIImage?]()
+    
     var id: Int
     var title: String
     var posterPath: String

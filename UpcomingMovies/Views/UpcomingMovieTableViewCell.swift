@@ -16,4 +16,9 @@ class UpcomingMovieTableViewCell: UITableViewCell
     @IBOutlet weak var untilOrSinceLabel: UILabel!
     @IBOutlet weak var releaseDateLabel: UILabel!
     
+    override func prepareForReuse()
+    {
+        posterImageView.image = #imageLiteral(resourceName: "default-image-small")
+    }
+    
 }

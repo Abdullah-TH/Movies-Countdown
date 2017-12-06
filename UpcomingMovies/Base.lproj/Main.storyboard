@@ -29,7 +29,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="89.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="KEg-ag-3X9">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="default-image-small" translatesAutoresizingMaskIntoConstraints="NO" id="KEg-ag-3X9">
                                                     <rect key="frame" x="17" y="10" width="45" height="68"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="68" id="eWp-Og-nGR"/>
@@ -98,6 +98,10 @@
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="BYZ-38-t0r" id="Che-2c-Hzf"/>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="yXE-eR-1Pg"/>
+                                </connections>
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -117,7 +121,6 @@
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="Fwg-Dc-BD6">
                             <connections>
-                                <action selector="addMovie:" destination="BYZ-38-t0r" id="kjG-2j-QxD"/>
                                 <segue destination="pfl-14-204" kind="presentation" id="Rbf-5O-Yc1"/>
                             </connections>
                         </barButtonItem>

@@ -65,19 +65,15 @@ class AddMovieViewController: UIViewController
         }
     }
     
-    private func downloadMoviePoster(for row: Int, cell: MovieToAddTableViewCell, path: String)
+    private func setCellPosterImage(for row: Int, cell: MovieToAddTableViewCell, path: String)
     {
         DispatchQueue.global(qos: .userInitiated).async {
         
-            let posterBaseURL = URL(string: "https://image.tmdb.org/t/p/w92/")
-            let posterURL = posterBaseURL?.appendingPathComponent(path)
-            let posterData = try! Data(contentsOf: posterURL!)
-            let posterImage = UIImage(data: posterData)
-            self.moviePosters[row] = posterImage
-            
-            DispatchQueue.main.async {
+            TheMovieDBAPIManager.downloadMoviePoster(size: .small, path: path, completion: { (posterImage) in
+                
+                self.moviePosters[row] = posterImage
                 cell.posterImageView.image = posterImage
-            }
+            })
         }
     }
     
@@ -126,7 +122,7 @@ extension AddMovieViewController: UITableViewDataSource
         
         if moviePosters[indexPath.row] == #imageLiteral(resourceName: "default-image-small")
         {
-            downloadMoviePoster(for: indexPath.row, cell: cell, path: movie.posterPath)
+            setCellPosterImage(for: indexPath.row, cell: cell, path: movie.posterPath)
         }
         
         return cell

@@ -16,6 +16,6 @@ class MovieToAddTableViewCell: UITableViewCell
     
     override func prepareForReuse()
     {
-        posterImageView.image = nil
+        posterImageView.image = #imageLiteral(resourceName: "default-image-small")
     }
 }

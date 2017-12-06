@@ -6,7 +6,13 @@
 //  Copyright © 2017 Abdullah Althobetey. All rights reserved.
 //
 
-import Foundation
+import UIKit
+
+enum PosterSize
+{
+    case small
+    case large
+}
 
 class TheMovieDBAPIManager
 {
@@ -149,6 +155,18 @@ class TheMovieDBAPIManager
         }
         
         task.resume()
+    }
+    
+    static func downloadMoviePoster(size: PosterSize, path: String, completion: @escaping (UIImage?) -> ())
+    {
+        let posterBaseURL = URL(string: "https://image.tmdb.org/t/p/\(size == .small ? "w92" : "w150")/")
+        let posterURL = posterBaseURL?.appendingPathComponent(path)
+        let posterData = try! Data(contentsOf: posterURL!)
+        let posterImage = UIImage(data: posterData)
+        
+        DispatchQueue.main.async {
+            completion(posterImage)
+        }
     }
 }
 

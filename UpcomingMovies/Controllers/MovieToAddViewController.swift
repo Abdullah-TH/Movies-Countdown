@@ -45,7 +45,7 @@ class MovieToAddViewController: UIViewController
         movieNameLabel.text = movie.title
         releaseDateLabel.text = "Releasing " + movie.releaseDateString
         overviewTextView.text = movie.overview
-        downloadMoviePosterImage(path: movie.posterPath)
+        setMoviePosterImage(path: movie.posterPath)
         
         if overviewTextView.text == ""
         {
@@ -56,16 +56,11 @@ class MovieToAddViewController: UIViewController
     
     // MARK: Helper Methods
     
-    private func downloadMoviePosterImage(path: String)
+    private func setMoviePosterImage(path: String)
     {
-        DispatchQueue.global(qos: .userInitiated).async {
-            let posterBaseURL = URL(string: "https://image.tmdb.org/t/p/w300/")
-            let posterURL = posterBaseURL?.appendingPathComponent(self.movie.posterPath)
-            let posterData = try! Data(contentsOf: posterURL!)
-            let posterImage = UIImage(data: posterData)
-            DispatchQueue.main.async {
-                self.moviePosterImageView.image = posterImage
-            }
+        TheMovieDBAPIManager.downloadMoviePoster(size: .large, path: movie.posterPath) { (posterImage) in
+            
+            self.moviePosterImageView.image = posterImage
         }
     }
     
@@ -73,6 +68,12 @@ class MovieToAddViewController: UIViewController
 
     @IBAction func addMovie(_ sender: UIButton)
     {
+        Movie.userMovies.append(movie)
+        
+        let alertController = UIAlertController(title: nil, message: "\(movie.title) sucessfully added to your list!", preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+        alertController.addAction(okAction)
+        present(alertController, animated: true, completion: nil)
     }
 }
 
