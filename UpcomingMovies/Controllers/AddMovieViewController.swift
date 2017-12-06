@@ -17,6 +17,7 @@ class AddMovieViewController: UIViewController
     // MARK: Properties
     
     var upcomingMovies = [Movie]()
+    var moviePosters = [UIImage?]()
     var currentPage = 1
     var totalPages: Int!
     
@@ -25,6 +26,13 @@ class AddMovieViewController: UIViewController
     override func viewDidLoad()
     {
         super.viewDidLoad()
+        downloadUpcomingMovies()
+    }
+    
+    // MARK: Helper Methods
+    
+    private func downloadUpcomingMovies()
+    {
         TheMovieDBAPIManager.getUpcomingMovies(page: currentPage, minReleaseDate: "2017-12-01") { (error, movies, totalPages) in
             
             if let error = error
@@ -41,9 +49,26 @@ class AddMovieViewController: UIViewController
                 self.totalPages = totalPages
                 self.currentPage += 1
                 self.upcomingMovies.append(contentsOf: movies!)
+                self.moviePosters.append(contentsOf: repeatElement(nil, count: movies!.count))
                 DispatchQueue.main.async {
                     self.tableView.reloadData()
                 }
+            }
+        }
+    }
+    
+    private func downloadMoviePoster(for row: Int, cell: MovieToAddTableViewCell, path: String)
+    {
+        DispatchQueue.global(qos: .userInitiated).async {
+        
+            let posterBaseURL = URL(string: "https://image.tmdb.org/t/p/w92/")
+            let posterURL = posterBaseURL?.appendingPathComponent(path)
+            let posterData = try! Data(contentsOf: posterURL!)
+            let posterImage = UIImage(data: posterData)
+            self.moviePosters[row] = posterImage
+            
+            DispatchQueue.main.async {
+                cell.posterImageView.image = posterImage
             }
         }
     }
@@ -60,7 +85,7 @@ extension AddMovieViewController: UITableViewDataSource
 {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     {
-        return upcomingMovies.count
+        return upcomingMovies.count 
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
@@ -68,7 +93,19 @@ extension AddMovieViewController: UITableViewDataSource
         let cell = tableView.dequeueReusableCell(withIdentifier: "MovieToAddCell", for: indexPath) as! MovieToAddTableViewCell
         let movie = upcomingMovies[indexPath.row]
         cell.movieNameLabel.text = movie.title
+        cell.posterImageView.image = moviePosters[indexPath.row]
+        
+        if moviePosters[indexPath.row] == nil
+        {
+            downloadMoviePoster(for: indexPath.row, cell: cell, path: movie.posterPath)
+        }
+        
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat
+    {
+        return 90
     }
 }
 
@@ -77,31 +114,11 @@ extension AddMovieViewController: UITableViewDelegate
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath)
     {
         print("page: \(currentPage)")
-        print("total pages: \(totalPages!)")
+        print("total pages: \(totalPages ?? 0)")
         
-        if indexPath.row == upcomingMovies.count - 1 && currentPage <= totalPages
+        if indexPath.row == upcomingMovies.count - 1 && currentPage <= (totalPages ?? 0)
         {
-            TheMovieDBAPIManager.getUpcomingMovies(page: currentPage, minReleaseDate: "2017-12-01") { (error, movies, totalPages) in
-                
-                if let error = error
-                {
-                    let alertController = UIAlertController(title: "Error", message: error, preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
-                    alertController.addAction(okAction)
-                    DispatchQueue.main.async {
-                        self.present(alertController, animated: true, completion: nil)
-                    }
-                }
-                else
-                {
-                    self.totalPages = totalPages
-                    self.currentPage += 1
-                    self.upcomingMovies.append(contentsOf: movies!)
-                    DispatchQueue.main.async {
-                        self.tableView.reloadData()
-                    }
-                }
-            }
+            downloadUpcomingMovies()
         }
     }
     

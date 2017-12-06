@@ -12,4 +12,9 @@ class MovieToAddTableViewCell: UITableViewCell
 {
     @IBOutlet weak var posterImageView: UIImageView!
     @IBOutlet weak var movieNameLabel: UILabel!
+    
+    override func prepareForReuse()
+    {
+        posterImageView.image = nil
+    }
 }
