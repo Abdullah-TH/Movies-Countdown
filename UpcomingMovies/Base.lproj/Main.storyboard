@@ -96,7 +96,6 @@
                                             <outlet property="posterImageView" destination="KEg-ag-3X9" id="nNa-h1-Yla"/>
                                             <outlet property="releaseDateLabel" destination="OIL-qk-HBt" id="WW6-AO-6J8"/>
                                             <outlet property="untilOrSinceLabel" destination="0x1-d1-WII" id="pvh-kM-kdC"/>
-                                            <segue destination="Yo3-fy-LX8" kind="show" id="blb-cr-E9j"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -129,6 +128,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="tableView" destination="sey-Iu-ztl" id="2Vv-Rm-iWT"/>
+                        <segue destination="Yo3-fy-LX8" kind="show" identifier="MovieListToMovieDetail" id="9ZL-bh-ncH"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

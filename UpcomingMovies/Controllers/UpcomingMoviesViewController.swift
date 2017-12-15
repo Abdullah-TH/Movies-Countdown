@@ -27,6 +27,15 @@ class UpcomingMoviesViewController: UIViewController
         tableView.reloadData()
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?)
+    {
+        if segue.identifier == "MovieListToMovieDetail"
+        {
+            let movieDetailVC = segue.destination as! MovieDetailViewController
+            movieDetailVC.movie = sender as! Movie
+        }
+    }
+    
     // MARK: Helper Methods
     
     private func setCellPosterImage(cell: UpcomingMovieTableViewCell, path: String)
@@ -37,34 +46,6 @@ class UpcomingMoviesViewController: UIViewController
                 
                 cell.posterImageView.image = posterImage
             })
-        }
-    }
-    
-    private func getPrettyDate(date: Date?) -> String
-    {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "dd MMM yyyy"
-        if let date = date
-        {
-            return dateFormatter.string(from: date)
-        }
-        
-        return "Unknown"
-    }
-    
-    private func getNumberOfDaysUntil(date: Date) -> Int
-    {
-        let calendar = Calendar.current
-        let today = calendar.startOfDay(for: Date())
-        if today <= date
-        {
-            let differance = calendar.dateComponents([.day], from: today, to: date)
-            return differance.day!
-        }
-        else // today > date
-        {
-            let differance = calendar.dateComponents([.day], from: date, to: today)
-            return -differance.day!
         }
     }
 
@@ -87,10 +68,10 @@ extension UpcomingMoviesViewController: UITableViewDataSource
         let cell = tableView.dequeueReusableCell(withIdentifier: "UpcomingMovieCell", for: indexPath) as! UpcomingMovieTableViewCell
         let movie = Movie.userMovies[indexPath.row]
         cell.movieNameLabel.text = movie.title
-        cell.releaseDateLabel.text = getPrettyDate(date: movie.releaseDate)
+        cell.releaseDateLabel.text = movie.prettyDateString
         setCellPosterImage(cell: cell, path: movie.posterPath)
         
-        let daysUntilRelease = getNumberOfDaysUntil(date: movie.releaseDate!)
+        let daysUntilRelease = movie.daysUntilRelease
         if daysUntilRelease > 0
         {
             cell.countDownBackgroundView.backgroundColor = UIColor.flatDarkBlue
@@ -120,6 +101,12 @@ extension UpcomingMoviesViewController: UITableViewDelegate
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat
     {
         return 90
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
+    {
+        let movie = Movie.userMovies[indexPath.row]
+        performSegue(withIdentifier: "MovieListToMovieDetail", sender: movie)
     }
 }
 

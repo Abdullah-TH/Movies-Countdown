@@ -20,11 +20,40 @@ class MovieDetailViewController: UIViewController
     @IBOutlet weak var secondsLabel: UILabel!
     @IBOutlet weak var releaseDateLabel: UILabel!
     
+    // MARK: Properties
+    
+    var movie: Movie!
+    var timer = Timer()
+    
     // MARK: ViewController Methods
     
     override func viewDidLoad()
     {
         super.viewDidLoad()
+        
+        timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { (timer) in
+            
+            self.updateCountdownComponents()
+        }
+    }
+    
+    // MARK: Helper Methods
+    
+    private func updateCountdownComponents()
+    {
+        if let countdownComponents = movie.countdownComponents
+        {
+            yearsLabel.text = countdownComponents.years
+            monthsLabel.text = countdownComponents.months
+            daysLabel.text = countdownComponents.days
+            hoursLabel.text = countdownComponents.hours
+            minutesLabel.text = countdownComponents.minutes
+            secondsLabel.text = countdownComponents.seconds
+        }
+        else
+        {
+            timer.invalidate() // movie allready released, no need to run the timer
+        }
     }
     
     // MARK: Actions
