@@ -11,6 +11,7 @@ import UIKit
 enum PosterSize
 {
     case small
+    case medium
     case large
 }
 
@@ -159,7 +160,16 @@ class TheMovieDBAPIManager
     
     static func downloadMoviePoster(size: PosterSize, path: String, completion: @escaping (UIImage?) -> ())
     {
-        let posterBaseURL = URL(string: "https://image.tmdb.org/t/p/\(size == .small ? "w92" : "w150")/")
+        let sizeString: String
+        switch size {
+        case .small:
+            sizeString = "w92"
+        case .medium:
+            sizeString = "w150"
+        case .large:
+            sizeString = "original"
+        }
+        let posterBaseURL = URL(string: "https://image.tmdb.org/t/p/\(sizeString)/")
         let posterURL = posterBaseURL?.appendingPathComponent(path)
         let posterData = try! Data(contentsOf: posterURL!)
         let posterImage = UIImage(data: posterData)

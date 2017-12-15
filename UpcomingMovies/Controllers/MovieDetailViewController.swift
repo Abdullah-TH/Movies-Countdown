@@ -35,9 +35,17 @@ class MovieDetailViewController: UIViewController
             
             self.updateCountdownComponents()
         }
+        
+        setupUI()
     }
     
     // MARK: Helper Methods
+    
+    private func setupUI()
+    {
+        releaseDateLabel.text = "\(movie.allreadyReleased ? "Released" : "Releasing") \(movie.prettyDateString)"
+        setPosterImage()
+    }
     
     private func updateCountdownComponents()
     {
@@ -53,6 +61,17 @@ class MovieDetailViewController: UIViewController
         else
         {
             timer.invalidate() // movie allready released, no need to run the timer
+        }
+    }
+    
+    private func setPosterImage()
+    {
+        DispatchQueue.global(qos: .userInitiated).async {
+            
+            TheMovieDBAPIManager.downloadMoviePoster(size: .large, path: self.movie.posterPath, completion: { (posterImage) in
+                
+                self.backgroundImageView.image = posterImage
+            })
         }
     }
     
