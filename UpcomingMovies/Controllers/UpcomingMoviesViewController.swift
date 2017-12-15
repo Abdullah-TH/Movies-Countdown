@@ -39,6 +39,34 @@ class UpcomingMoviesViewController: UIViewController
             })
         }
     }
+    
+    private func getPrettyDate(date: Date?) -> String
+    {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd MMM yyyy"
+        if let date = date
+        {
+            return dateFormatter.string(from: date)
+        }
+        
+        return "Unknown"
+    }
+    
+    private func getNumberOfDaysUntil(date: Date) -> Int
+    {
+        let calendar = Calendar.current
+        let today = calendar.startOfDay(for: Date())
+        if today <= date
+        {
+            let differance = calendar.dateComponents([.day], from: today, to: date)
+            return differance.day!
+        }
+        else // today > date
+        {
+            let differance = calendar.dateComponents([.day], from: date, to: today)
+            return -differance.day!
+        }
+    }
 
     // MARK: Actions
     
@@ -59,7 +87,30 @@ extension UpcomingMoviesViewController: UITableViewDataSource
         let cell = tableView.dequeueReusableCell(withIdentifier: "UpcomingMovieCell", for: indexPath) as! UpcomingMovieTableViewCell
         let movie = Movie.userMovies[indexPath.row]
         cell.movieNameLabel.text = movie.title
+        cell.releaseDateLabel.text = getPrettyDate(date: movie.releaseDate)
         setCellPosterImage(cell: cell, path: movie.posterPath)
+        
+        let daysUntilRelease = getNumberOfDaysUntil(date: movie.releaseDate!)
+        if daysUntilRelease > 0
+        {
+            cell.countDownBackgroundView.backgroundColor = UIColor.flatDarkBlue
+            cell.untilOrSinceLabel.text = "days until"
+            cell.countdownLabel.text = "\(daysUntilRelease)"
+        }
+        else if daysUntilRelease == 0
+        {
+            cell.countDownBackgroundView.backgroundColor = UIColor.flatGreen
+            cell.countdownLabel.text = "Today!"
+            cell.countDownLabelTopConstraint.constant = 20
+            cell.untilOrSinceLabel.isHidden = true 
+        }
+        else if daysUntilRelease < 0
+        {
+            cell.countDownBackgroundView.backgroundColor = UIColor.flatRed
+            cell.untilOrSinceLabel.text = "days since"
+            cell.countdownLabel.text = "\(daysUntilRelease)"
+        }
+        
         return cell
     }
 }

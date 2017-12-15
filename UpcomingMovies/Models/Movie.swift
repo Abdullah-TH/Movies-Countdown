@@ -11,12 +11,17 @@ import UIKit
 struct Movie
 {
     static var userMovies = [Movie]()
-    static var userMoviePosters = [UIImage?]()
     
     var id: Int
     var title: String
     var posterPath: String
     var genres: [String]
     var overview: String
-    var releaseDateString: String 
+    var releaseDateString: String
+    
+    var releaseDate: Date? {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        return dateFormatter.date(from: releaseDateString)
+    }
 }
