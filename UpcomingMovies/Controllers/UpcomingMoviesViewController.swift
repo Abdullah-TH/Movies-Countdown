@@ -89,7 +89,7 @@ extension UpcomingMoviesViewController: UITableViewDataSource
         {
             cell.countDownBackgroundView.backgroundColor = UIColor.flatRed
             cell.untilOrSinceLabel.text = "days since"
-            cell.countdownLabel.text = "\(daysUntilRelease)"
+            cell.countdownLabel.text = "\( abs(Int32(daysUntilRelease)) )"
         }
         
         return cell

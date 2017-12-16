@@ -43,6 +43,7 @@ class MovieDetailViewController: UIViewController
     
     private func setupUI()
     {
+        navigationItem.title = movie.title
         releaseDateLabel.text = "\(movie.allreadyReleased ? "Released" : "Releasing") \(movie.prettyDateString)"
         setPosterImage()
     }
