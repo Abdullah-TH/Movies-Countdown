@@ -44,7 +44,12 @@ class AddMovieViewController: UIViewController
     
     private func downloadUpcomingMovies()
     {
-        TheMovieDBAPIManager.getUpcomingMovies(page: currentPage, minReleaseDate: "2017-12-01") { (errorMessage, movies, totalPages) in
+        let today = Date()
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        let todayFormattedString = dateFormatter.string(from: today)
+        
+        TheMovieDBAPIManager.getUpcomingMovies(page: currentPage, minReleaseDate: todayFormattedString) { (errorMessage, movies, totalPages) in
             
             if let error = errorMessage
             {
@@ -138,10 +143,8 @@ extension AddMovieViewController: UITableViewDelegate
 {
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath)
     {
-        print("page: \(currentPage)")
-        print("total pages: \(totalPages ?? 0)")
-        
-        if indexPath.row == upcomingMovies.count - 1 && currentPage <= (totalPages ?? 0)
+        // Start downloading the next page of movies when the fifth cell, from bottom, is displayed, and if total pages not exceeded
+        if indexPath.row == upcomingMovies.count - 5 && currentPage <= (totalPages ?? 0)
         {
             downloadUpcomingMovies()
         }
