@@ -20,6 +20,7 @@ class UpcomingMovieTableViewCell: UITableViewCell
     
     override func prepareForReuse()
     {
+        super.prepareForReuse()
         posterImageView.image = #imageLiteral(resourceName: "default-image-small")
     }
     

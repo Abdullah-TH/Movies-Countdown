@@ -10,7 +10,16 @@ import UIKit
 
 struct Movie
 {
+    // MARK: Static Properties and Methods
+    
     static var userMovies = [Movie]()
+    
+    static func ==(lhs: Movie, rhs: Movie) -> Bool
+    {
+        return lhs.id == rhs.id
+    }
+    
+    // MARK: Properties
     
     var id: Int
     var title: String
@@ -18,6 +27,8 @@ struct Movie
     var genres: [String]
     var overview: String
     var releaseDateString: String
+    
+    // MARK: Computed Properties 
     
     var releaseDate: Date? {
         

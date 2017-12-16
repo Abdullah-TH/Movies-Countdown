@@ -30,6 +30,16 @@ class AddMovieViewController: UIViewController
         downloadUpcomingMovies()
     }
     
+    override func viewWillAppear(_ animated: Bool)
+    {
+        super.viewWillAppear(animated)
+        
+        if let selectedIndexPath = tableView.indexPathForSelectedRow
+        {
+            tableView.deselectRow(at: selectedIndexPath, animated: true)
+        }
+    }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?)
     {
         if segue.identifier == "AddMovieToMovieToAdd"
@@ -94,6 +104,9 @@ class AddMovieViewController: UIViewController
     
     @IBAction func cancelAddMovie(_ sender: UIBarButtonItem)
     {
+        let navigationController = presentingViewController as! UINavigationController
+        let upcomingMoviesVC = navigationController.topViewController as! UpcomingMoviesViewController
+        upcomingMoviesVC.tableView.reloadData()
         dismiss(animated: true, completion: nil)
     }
 }

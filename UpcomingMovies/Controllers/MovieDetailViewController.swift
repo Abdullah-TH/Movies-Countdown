@@ -14,6 +14,11 @@ enum CountdownPosition
     case bottom
 }
 
+protocol MovieDetialDelegate
+{
+    func deleteMovieAtIndex(_ index: Int)
+}
+
 class MovieDetailViewController: UIViewController
 {
     // MARK: Outlets
@@ -30,6 +35,7 @@ class MovieDetailViewController: UIViewController
     
     // MARK: Properties
     
+    var delegate: MovieDetialDelegate?
     var movie: Movie!
     var timer = Timer()
     var countdownStackViewCurrentConstraints = [NSLayoutConstraint]()
@@ -138,6 +144,23 @@ class MovieDetailViewController: UIViewController
     
     @IBAction func deleteMovie(_ sender: UIBarButtonItem)
     {
+        var indexToDelete: Int? = nil
+
+        for (index, movieToDelete) in Movie.userMovies.enumerated()
+        {
+            if movieToDelete == movie
+            {
+                indexToDelete = index
+                break
+            }
+        }
+
+        if let i = indexToDelete
+        {
+            delegate?.deleteMovieAtIndex(i)
+        }
+
+        navigationController?.popViewController(animated: true)
     }
     
     @IBAction func toggleCountdownPosition(_ sender: UIBarButtonItem)
