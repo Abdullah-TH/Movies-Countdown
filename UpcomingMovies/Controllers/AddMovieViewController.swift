@@ -102,7 +102,7 @@ class AddMovieViewController: UIViewController
 
     // MARK: Actions
     
-    @IBAction func cancelAddMovie(_ sender: UIBarButtonItem)
+    @IBAction func goBack(_ sender: UIBarButtonItem)
     {
         let navigationController = presentingViewController as! UINavigationController
         let upcomingMoviesVC = navigationController.topViewController as! UpcomingMoviesViewController

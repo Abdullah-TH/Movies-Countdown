@@ -430,9 +430,9 @@
                     </view>
                     <navigationItem key="navigationItem" title="Add Movie" id="m4a-dk-ArV">
                         <barButtonItem key="backBarButtonItem" title="Back" id="Ama-yE-Tga"/>
-                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="fhT-My-i6a">
+                        <barButtonItem key="leftBarButtonItem" title="Back" id="fhT-My-i6a">
                             <connections>
-                                <action selector="cancelAddMovie:" destination="gcC-Qq-s18" id="9GY-BG-Dtj"/>
+                                <action selector="goBack:" destination="gcC-Qq-s18" id="3Nf-Kz-BeS"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
