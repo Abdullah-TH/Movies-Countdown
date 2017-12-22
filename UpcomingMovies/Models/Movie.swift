@@ -28,6 +28,10 @@ struct Movie
     var overview: String
     var releaseDateString: String
     
+    var smallPoster: UIImage?
+    var largePoster: UIImage?
+    var countdownBottom = true
+    
     // MARK: Computed Properties 
     
     var releaseDate: Date? {

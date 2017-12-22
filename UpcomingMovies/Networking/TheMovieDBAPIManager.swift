@@ -98,7 +98,16 @@ class TheMovieDBAPIManager
                                 }
                             }
                             
-                            let movie = Movie(id: id, title: title, posterPath: posterPath, genres: movieGenres, overview: overview, releaseDateString: releaseDateString)
+                            let movie = Movie(id: id,
+                                              title: title,
+                                              posterPath: posterPath,
+                                              genres: movieGenres,
+                                              overview: overview,
+                                              releaseDateString: releaseDateString,
+                                              smallPoster: nil,
+                                              largePoster: nil,
+                                              countdownBottom: true)
+                            
                             movies.append(movie)
                         }
                     }
