@@ -24,6 +24,7 @@
 		6AC4155C1FD5B41100055E01 /* UpcomingMovieTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AC4155B1FD5B41100055E01 /* UpcomingMovieTableViewCell.swift */; };
 		6AC4155E1FD5B42000055E01 /* MovieToAddTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AC4155D1FD5B42000055E01 /* MovieToAddTableViewCell.swift */; };
 		B809EAAC1FE345CB00F4DF4A /* UIColorsExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B809EAAB1FE345CB00F4DF4A /* UIColorsExtension.swift */; };
+		B81F785A1FEDA061001C3AA0 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = B81F78591FEDA061001C3AA0 /* CoreDataStack.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -67,6 +68,7 @@
 		6AC4155B1FD5B41100055E01 /* UpcomingMovieTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpcomingMovieTableViewCell.swift; sourceTree = "<group>"; };
 		6AC4155D1FD5B42000055E01 /* MovieToAddTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieToAddTableViewCell.swift; sourceTree = "<group>"; };
 		B809EAAB1FE345CB00F4DF4A /* UIColorsExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorsExtension.swift; sourceTree = "<group>"; };
+		B81F78591FEDA061001C3AA0 /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -191,6 +193,7 @@
 		6A32B3561FD59D6A005F42EF /* Core Data */ = {
 			isa = PBXGroup;
 			children = (
+				B81F78591FEDA061001C3AA0 /* CoreDataStack.swift */,
 			);
 			path = "Core Data";
 			sourceTree = "<group>";
@@ -343,6 +346,7 @@
 				6A7C6E9A1FD69D6F00B8F77E /* TheMovieDBAPIManager.swift in Sources */,
 				6A32B3231FD557CD005F42EF /* UpcomingMoviesViewController.swift in Sources */,
 				6A32B3211FD557CD005F42EF /* AppDelegate.swift in Sources */,
+				B81F785A1FEDA061001C3AA0 /* CoreDataStack.swift in Sources */,
 				6AC4155C1FD5B41100055E01 /* UpcomingMovieTableViewCell.swift in Sources */,
 				B809EAAC1FE345CB00F4DF4A /* UIColorsExtension.swift in Sources */,
 				6A32B35C1FD5ABD4005F42EF /* MovieDetailViewController.swift in Sources */,
