@@ -103,10 +103,7 @@ class TheMovieDBAPIManager
                                               posterPath: posterPath,
                                               genres: movieGenres,
                                               overview: overview,
-                                              releaseDateString: releaseDateString,
-                                              smallPoster: nil,
-                                              largePoster: nil,
-                                              countdownBottom: true)
+                                              releaseDateString: releaseDateString)
                             
                             movies.append(movie)
                         }
