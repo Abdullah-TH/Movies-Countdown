@@ -7,7 +7,7 @@
         <attribute name="largePoster" optional="YES" attributeType="Binary" allowsExternalBinaryDataStorage="YES" syncable="YES"/>
         <attribute name="overview" attributeType="String" syncable="YES"/>
         <attribute name="posterPath" attributeType="String" syncable="YES"/>
-        <attribute name="releaseDateString" attributeType="String" syncable="YES"/>
+        <attribute name="releaseDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="smallPoster" optional="YES" attributeType="Binary" allowsExternalBinaryDataStorage="YES" syncable="YES"/>
         <attribute name="title" attributeType="String" syncable="YES"/>
     </entity>

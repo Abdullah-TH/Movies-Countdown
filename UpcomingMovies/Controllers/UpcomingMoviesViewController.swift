@@ -34,6 +34,8 @@ class UpcomingMoviesViewController: UIViewController
         cdStack.delegate = self
 
         let fetchRequest = UserMovie.fetchRequest() as NSFetchRequest<UserMovie>
+        let sort = NSSortDescriptor(key: #keyPath(UserMovie.releaseDate), ascending: true)
+        fetchRequest.sortDescriptors = [sort]
         do
         {
             userMovies = try context.fetch(fetchRequest)

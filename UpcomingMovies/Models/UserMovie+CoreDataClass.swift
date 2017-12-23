@@ -15,13 +15,6 @@ public class UserMovie: NSManagedObject
 {
     // MARK: Computed Properties
     
-    var releaseDate: Date? {
-        
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd"
-        return dateFormatter.date(from: releaseDateString)
-    }
-    
     var prettyDateString: String {
         
         let dateFormatter = DateFormatter()

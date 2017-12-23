@@ -82,7 +82,7 @@ class MovieToAddViewController: UIViewController
         userMovie.posterPath = movie.posterPath
         userMovie.genres = NSArray(array: movie.genres.map({ NSString(string: $0) }))
         userMovie.overview = movie.overview
-        userMovie.releaseDateString = movie.releaseDateString
+        userMovie.releaseDate = movie.releaseDate
         userMovie.isCountdownBottom = true 
         
         cdStack.saveContext()

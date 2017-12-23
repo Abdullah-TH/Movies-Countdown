@@ -23,7 +23,7 @@ extension UserMovie
     @NSManaged public var posterPath: String
     @NSManaged public var genres: NSArray
     @NSManaged public var overview: String
-    @NSManaged public var releaseDateString: String
+    @NSManaged public var releaseDate: Date?
     @NSManaged public var smallPoster: NSData?
     @NSManaged public var largePoster: NSData?
     @NSManaged public var isCountdownBottom: Bool
