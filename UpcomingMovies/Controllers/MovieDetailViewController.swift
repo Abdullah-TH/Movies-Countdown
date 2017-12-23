@@ -69,6 +69,15 @@ class MovieDetailViewController: UIViewController
         cdStack.delegate = self
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?)
+    {
+        if segue.identifier == "MovieDetailToMovieInfo"
+        {
+            let movieInfoVC = segue.destination as! MovieInfoViewController
+            movieInfoVC.userMovie = userMovie
+        }
+    }
+    
     // MARK: Helper Methods
     
     private func setupUI()

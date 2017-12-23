@@ -28,6 +28,7 @@
 		B81F78611FEDAB1F001C3AA0 /* UserMovie+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = B81F785F1FEDAB1F001C3AA0 /* UserMovie+CoreDataClass.swift */; };
 		B81F78621FEDAB1F001C3AA0 /* UserMovie+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = B81F78601FEDAB1F001C3AA0 /* UserMovie+CoreDataProperties.swift */; };
 		B81F78641FEDC3E3001C3AA0 /* UIViewControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B81F78631FEDC3E3001C3AA0 /* UIViewControllerExtension.swift */; };
+		B81F78661FEE6FCA001C3AA0 /* MovieInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B81F78651FEE6FCA001C3AA0 /* MovieInfoViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -75,6 +76,7 @@
 		B81F785F1FEDAB1F001C3AA0 /* UserMovie+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserMovie+CoreDataClass.swift"; sourceTree = "<group>"; };
 		B81F78601FEDAB1F001C3AA0 /* UserMovie+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserMovie+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		B81F78631FEDC3E3001C3AA0 /* UIViewControllerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewControllerExtension.swift; sourceTree = "<group>"; };
+		B81F78651FEE6FCA001C3AA0 /* MovieInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieInfoViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -164,6 +166,7 @@
 			children = (
 				6A32B3221FD557CD005F42EF /* UpcomingMoviesViewController.swift */,
 				6A32B35B1FD5ABD4005F42EF /* MovieDetailViewController.swift */,
+				B81F78651FEE6FCA001C3AA0 /* MovieInfoViewController.swift */,
 				6A32B3571FD5AB7B005F42EF /* AddMovieViewController.swift */,
 				6A32B3591FD5ABC4005F42EF /* MovieToAddViewController.swift */,
 			);
@@ -360,6 +363,7 @@
 				B81F78621FEDAB1F001C3AA0 /* UserMovie+CoreDataProperties.swift in Sources */,
 				B81F78611FEDAB1F001C3AA0 /* UserMovie+CoreDataClass.swift in Sources */,
 				6AC4155C1FD5B41100055E01 /* UpcomingMovieTableViewCell.swift in Sources */,
+				B81F78661FEE6FCA001C3AA0 /* MovieInfoViewController.swift in Sources */,
 				B809EAAC1FE345CB00F4DF4A /* UIColorsExtension.swift in Sources */,
 				6A32B35C1FD5ABD4005F42EF /* MovieDetailViewController.swift in Sources */,
 				6A32B3581FD5AB7B005F42EF /* AddMovieViewController.swift in Sources */,
