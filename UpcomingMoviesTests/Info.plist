@@ -18,5 +18,7 @@
 	<string>1.0</string>
 	<key>CFBundleVersion</key>
 	<string>1</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>$(PRODUCT_NAME) need your permision to save photos to your library</string>
 </dict>
 </plist>

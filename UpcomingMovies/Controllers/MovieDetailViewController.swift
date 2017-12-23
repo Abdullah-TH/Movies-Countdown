@@ -157,10 +157,62 @@ class MovieDetailViewController: UIViewController
         }
     }
     
+    private func generateMovieWithCountdownImage() -> UIImage
+    {
+        // Hide toolbar and navigation bar
+        navigationController?.navigationBar.isHidden = true
+        toolbar.isHidden = true
+        
+        // Render view to an image
+        
+        let scale = UIScreen.main.scale
+        let imageSize = CGSize(width: view.frame.size.width * scale, height: view.frame.size.height * scale)
+        
+        UIGraphicsBeginImageContextWithOptions(imageSize, view.isOpaque, scale)
+        view.drawHierarchy(in: view.frame, afterScreenUpdates: true)
+        let movieWithCountdownImage = UIGraphicsGetImageFromCurrentImageContext()!
+        UIGraphicsEndImageContext()
+        
+        // Crop top empty space
+        
+        let heightToCrop = 64 * scale // points of navigation bar (44) + status bar (20) = (64)
+        let  croppedImage = cropImage(imageToCrop: movieWithCountdownImage,
+                                      toRect: CGRect(x: 0,
+                                                     y: heightToCrop, // points of navigation bar (44) + status bar (20) = (64)
+                                                     width: movieWithCountdownImage.size.width,
+                                                     height: movieWithCountdownImage.size.height - heightToCrop))
+        
+        // Show toolbar and navbar
+        navigationController?.navigationBar.isHidden = false
+        toolbar.isHidden = false
+        
+        return croppedImage
+    }
+    
+    func cropImage(imageToCrop:UIImage, toRect rect:CGRect) -> UIImage
+    {
+        let imageRef:CGImage = imageToCrop.cgImage!.cropping(to: rect)!
+        let cropped:UIImage = UIImage(cgImage:imageRef)
+        return cropped
+    }
+    
     // MARK: Actions
     
     @IBAction func shareMovie(_ sender: UIBarButtonItem)
     {
+        let movieImage = generateMovieWithCountdownImage()
+        let activityVC = UIActivityViewController(activityItems: [movieImage], applicationActivities: nil)
+        
+        activityVC.completionWithItemsHandler = { (activityType: UIActivityType?, completed: Bool, returnedItems: [Any]?, activityError: Error?) in
+            
+            if completed
+            {
+                self.dismiss(animated: true, completion: nil)
+            }
+            
+        }
+        
+        present(activityVC, animated: true, completion: nil)
     }
     
     @IBAction func deleteMovie(_ sender: UIBarButtonItem)
