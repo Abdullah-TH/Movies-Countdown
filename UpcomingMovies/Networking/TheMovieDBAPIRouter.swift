@@ -43,7 +43,7 @@ enum TheMovieDBAPIRouter
     var queryItems: [URLQueryItem] {
         
         var queryItems = [URLQueryItem]()
-        queryItems.append(URLQueryItem(name: "api_key", value: "ae0291cad240b8e220d7190cb488fb57"))
+        queryItems.append(URLQueryItem(name: "api_key", value: TMDBAPIKey.apiKey))
         
         switch self
         {

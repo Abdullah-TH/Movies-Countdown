@@ -373,7 +373,7 @@
                     <viewLayoutGuide key="safeArea" id="u9a-EW-fXA"/>
                 </stackView>
             </objects>
-            <point key="canvasLocation" x="982" y="485"/>
+            <point key="canvasLocation" x="1135" y="484"/>
         </scene>
         <!--Movie Info View Controller-->
         <scene sceneID="CKi-zg-T8d">
@@ -476,7 +476,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Vwd-ME-KbU" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1816.8" y="483.50824587706148"/>
+            <point key="canvasLocation" x="1726" y="484"/>
         </scene>
         <!--Add Movie-->
         <scene sceneID="cde-PB-fuc">
@@ -679,7 +679,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1Kh-k0-48v" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2445.5999999999999" y="-304.4977511244378"/>
+            <point key="canvasLocation" x="2311" y="-305"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="5Xv-rp-cg1">
@@ -701,7 +701,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Oob-2c-lP7" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-652" y="54"/>
+            <point key="canvasLocation" x="-443" y="54"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="uox-pR-xTo">
@@ -723,7 +723,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IzN-bs-KUK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="982" y="-304"/>
+            <point key="canvasLocation" x="1135" y="-305"/>
         </scene>
         <!--App Info View Controller-->
         <scene sceneID="wwS-cW-g1z">
@@ -830,7 +830,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xcr-rq-Fov" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="166" y="-627"/>
+            <point key="canvasLocation" x="654" y="-689"/>
         </scene>
     </scenes>
     <resources>
