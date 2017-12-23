@@ -64,12 +64,14 @@ class UpcomingMoviesViewController: UIViewController
     
     // MARK: Helper Methods
     
-    private func setCellPosterImage(cell: UpcomingMovieTableViewCell, path: String)
+    private func setCellPosterImage(cell: UpcomingMovieTableViewCell, movie: UserMovie)
     {
         DispatchQueue.global(qos: .userInitiated).async {
             
-            TheMovieDBAPIManager.downloadMoviePoster(size: .small, path: path, completion: { (posterImage) in
+            TheMovieDBAPIManager.downloadMoviePoster(size: .small, path: movie.posterPath, completion: { (posterImage) in
                 
+                movie.smallPoster = UIImagePNGRepresentation(posterImage!) as NSData?
+                self.cdStack.saveContext()
                 cell.posterImageView.image = posterImage
             })
         }
@@ -118,7 +120,15 @@ extension UpcomingMoviesViewController: UITableViewDataSource
         let movie = userMovies[indexPath.row]
         cell.movieNameLabel.text = movie.title
         cell.releaseDateLabel.text = movie.prettyDateString
-        setCellPosterImage(cell: cell, path: movie.posterPath)
+        
+        if let posterData = movie.smallPoster
+        {
+            cell.posterImageView.image = UIImage(data: posterData as Data)
+        }
+        else
+        {
+            setCellPosterImage(cell: cell, movie: movie)
+        }
         
         let daysUntilRelease = movie.daysUntilRelease
         if daysUntilRelease > 0

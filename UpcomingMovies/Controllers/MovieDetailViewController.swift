@@ -148,12 +148,22 @@ class MovieDetailViewController: UIViewController
     
     private func setPosterImage()
     {
-        DispatchQueue.global(qos: .userInitiated).async {
-            
-            TheMovieDBAPIManager.downloadMoviePoster(size: .large, path: self.userMovie.posterPath, completion: { (posterImage) in
+        if let largePosterData = userMovie.largePoster
+        {
+            let posterImage = UIImage(data: largePosterData as Data)
+            backgroundImageView.image = posterImage
+        }
+        else
+        {
+            DispatchQueue.global(qos: .userInitiated).async {
                 
-                self.backgroundImageView.image = posterImage
-            })
+                TheMovieDBAPIManager.downloadMoviePoster(size: .large, path: self.userMovie.posterPath, completion: { (posterImage) in
+                    
+                    self.userMovie.largePoster = UIImagePNGRepresentation(posterImage!) as NSData?
+                    self.cdStack.saveContext()
+                    self.backgroundImageView.image = posterImage
+                })
+            }
         }
     }
     
