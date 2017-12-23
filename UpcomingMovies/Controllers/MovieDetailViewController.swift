@@ -16,7 +16,7 @@ enum CountdownPosition
 
 protocol MovieDetialDelegate
 {
-    func deleteMovieAtIndex(_ index: Int)
+    func deleteUserMovie(_ movie: UserMovie)
 }
 
 class MovieDetailViewController: UIViewController
@@ -36,10 +36,16 @@ class MovieDetailViewController: UIViewController
     // MARK: Properties
     
     var delegate: MovieDetialDelegate?
-    var movie: Movie!
+    var userMovie: UserMovie!
     var timer = Timer()
     var countdownStackViewCurrentConstraints = [NSLayoutConstraint]()
-    var countdownPosition = CountdownPosition.bottom
+    let cdStack = CoreDataStack.shared
+    
+    // MARK: Computed Properties
+    
+    var countdownPosition: CountdownPosition {
+        return userMovie.isCountdownBottom ? .bottom : .top
+    }
     
     // MARK: ViewController Methods
     
@@ -57,12 +63,18 @@ class MovieDetailViewController: UIViewController
         setupCountdownStackViewConstraints()
     }
     
+    override func viewWillAppear(_ animated: Bool)
+    {
+        super.viewWillAppear(animated)
+        cdStack.delegate = self
+    }
+    
     // MARK: Helper Methods
     
     private func setupUI()
     {
-        navigationItem.title = movie.title
-        releaseDateLabel.text = "\(movie.allreadyReleased ? "Released" : "Releasing") \(movie.prettyDateString)"
+        navigationItem.title = userMovie.title
+        releaseDateLabel.text = "\(userMovie.allreadyReleased ? "Released" : "Releasing") \(userMovie.prettyDateString)"
         setPosterImage()
     }
     
@@ -110,7 +122,7 @@ class MovieDetailViewController: UIViewController
     
     private func updateCountdownComponents()
     {
-        if let countdownComponents = movie.countdownComponents
+        if let countdownComponents = userMovie.countdownComponents
         {
             yearsLabel.text = countdownComponents.years
             monthsLabel.text = countdownComponents.months
@@ -129,7 +141,7 @@ class MovieDetailViewController: UIViewController
     {
         DispatchQueue.global(qos: .userInitiated).async {
             
-            TheMovieDBAPIManager.downloadMoviePoster(size: .large, path: self.movie.posterPath, completion: { (posterImage) in
+            TheMovieDBAPIManager.downloadMoviePoster(size: .large, path: self.userMovie.posterPath, completion: { (posterImage) in
                 
                 self.backgroundImageView.image = posterImage
             })
@@ -144,34 +156,70 @@ class MovieDetailViewController: UIViewController
     
     @IBAction func deleteMovie(_ sender: UIBarButtonItem)
     {
-        var indexToDelete: Int? = nil
-
-        for (index, movieToDelete) in Movie.userMovies.enumerated()
-        {
-            if movieToDelete == movie
-            {
-                indexToDelete = index
-                break
-            }
-        }
-
-        if let i = indexToDelete
-        {
-            delegate?.deleteMovieAtIndex(i)
-        }
-
+        delegate?.deleteUserMovie(userMovie)
         navigationController?.popViewController(animated: true)
     }
     
     @IBAction func toggleCountdownPosition(_ sender: UIBarButtonItem)
     {
-        countdownPosition = countdownPosition == .bottom ? .top : .bottom
+        userMovie.isCountdownBottom = !userMovie.isCountdownBottom
+        cdStack.saveContext()
         
         UIView.animate(withDuration: 0.2) {
             self.setupCountdownStackViewConstraints()
         }
     }
 }
+
+extension MovieDetailViewController: CoreDataStackDelegate
+{
+    func errorSaving(error: NSError)
+    {
+        showAlert(title: "Error saving data", message: error.localizedDescription)
+    }
+    
+    func errorLoadingPersistentContainer(error: NSError)
+    {
+        showAlert(title: "Error loading data", message: error.localizedDescription)
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

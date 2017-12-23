@@ -19,11 +19,10 @@ class CoreDataStack
 {
     static let shared = CoreDataStack()
     
-    var delegate: CoreDataStackDelegate
+    var delegate: CoreDataStackDelegate?
     
     private init()
     {
-        fatalError("Use CoreData.shared singelton. Do not instansiate directly.")
     }
     
     lazy var persistentContainer: NSPersistentContainer = {
@@ -33,7 +32,7 @@ class CoreDataStack
             
             if let error = error as NSError?
             {
-                self.delegate.errorLoadingPersistentContainer(error: error)
+                self.delegate?.errorLoadingPersistentContainer(error: error)
             }
         })
         
@@ -54,7 +53,7 @@ class CoreDataStack
             catch
             {
                 let nsError = error as NSError
-                delegate.errorSaving(error: nsError)
+                delegate?.errorSaving(error: nsError)
             }
         }
     }

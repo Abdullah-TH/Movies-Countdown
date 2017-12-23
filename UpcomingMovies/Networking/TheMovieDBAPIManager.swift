@@ -167,7 +167,8 @@ class TheMovieDBAPIManager
     static func downloadMoviePoster(size: PosterSize, path: String, completion: @escaping (UIImage?) -> ())
     {
         let sizeString: String
-        switch size {
+        switch size
+        {
         case .small:
             sizeString = "w92"
         case .medium:

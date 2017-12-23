@@ -22,6 +22,8 @@ class MovieToAddViewController: UIViewController
     // MARK: Properties
     
     var movie: Movie!
+    let cdStack = CoreDataStack.shared
+    let context = CoreDataStack.shared.persistentContainer.viewContext
     
     // MARK: ViewController Methods
     
@@ -54,6 +56,12 @@ class MovieToAddViewController: UIViewController
         }
     }
     
+    override func viewWillAppear(_ animated: Bool)
+    {
+        super.viewWillAppear(animated)
+        cdStack.delegate = self
+    }
+    
     // MARK: Helper Methods
     
     private func setMoviePosterImage(path: String)
@@ -68,7 +76,16 @@ class MovieToAddViewController: UIViewController
 
     @IBAction func addMovie(_ sender: UIButton)
     {
-        Movie.userMovies.append(movie)
+        let userMovie = UserMovie(entity: UserMovie.entity(), insertInto: context)
+        userMovie.id = Int32(movie.id)
+        userMovie.title = movie.title
+        userMovie.posterPath = movie.posterPath
+        userMovie.genres = NSArray(array: movie.genres.map({ NSString(string: $0) }))
+        userMovie.overview = movie.overview
+        userMovie.releaseDateString = movie.releaseDateString
+        userMovie.isCountdownBottom = true 
+        
+        cdStack.saveContext()
         
         let alertController = UIAlertController(title: nil, message: "\(movie.title) sucessfully added to your list!", preferredStyle: .alert)
         let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
@@ -76,6 +93,36 @@ class MovieToAddViewController: UIViewController
         present(alertController, animated: true, completion: nil)
     }
 }
+
+extension MovieToAddViewController: CoreDataStackDelegate
+{
+    func errorLoadingPersistentContainer(error: NSError)
+    {
+        showAlert(title: "Error loading data", message: error.localizedDescription)
+    }
+    
+    func errorSaving(error: NSError)
+    {
+        showAlert(title: "Error saving data", message: error.localizedDescription)
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

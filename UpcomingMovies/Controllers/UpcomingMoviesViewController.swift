@@ -7,12 +7,19 @@
 //
 
 import UIKit
+import CoreData
 
 class UpcomingMoviesViewController: UIViewController
 {
     // MARK: Outlets
     
     @IBOutlet weak var tableView: UITableView!
+    
+    // MARK: Properties
+    
+    let cdStack = CoreDataStack.shared
+    let context = CoreDataStack.shared.persistentContainer.viewContext
+    var userMovies = [UserMovie]()
     
     // MARK: ViewController Methods
     
@@ -24,6 +31,18 @@ class UpcomingMoviesViewController: UIViewController
     override func viewWillAppear(_ animated: Bool)
     {
         super.viewWillAppear(animated)
+        cdStack.delegate = self
+
+        let fetchRequest = UserMovie.fetchRequest() as NSFetchRequest<UserMovie>
+        do
+        {
+            userMovies = try context.fetch(fetchRequest)
+            tableView.reloadData()
+        }
+        catch
+        {
+            showAlert(title: "Error", message: error.localizedDescription)
+        }
         
         if let selectedIndexPath = tableView.indexPathForSelectedRow
         {
@@ -36,7 +55,7 @@ class UpcomingMoviesViewController: UIViewController
         if segue.identifier == "MovieListToMovieDetail"
         {
             let movieDetailVC = segue.destination as! MovieDetailViewController
-            movieDetailVC.movie = sender as! Movie
+            movieDetailVC.userMovie = sender as! UserMovie
             movieDetailVC.delegate = self
         }
     }
@@ -53,6 +72,14 @@ class UpcomingMoviesViewController: UIViewController
             })
         }
     }
+    
+    private func performDeletingUserMovie(at index: Int)
+    {
+        let movieToDelete = userMovies.remove(at: index)
+        context.delete(movieToDelete)
+        cdStack.saveContext()
+        tableView.deleteRows(at: [IndexPath(row: index, section: 0)] , with: .automatic)
+    }
 
     // MARK: Actions
     
@@ -65,10 +92,12 @@ class UpcomingMoviesViewController: UIViewController
 
 extension UpcomingMoviesViewController: MovieDetialDelegate
 {
-    func deleteMovieAtIndex(_ index: Int)
+    func deleteUserMovie(_ movie: UserMovie)
     {
-        Movie.userMovies.remove(at: index)
-        tableView.deleteRows(at: [IndexPath(row: index, section: 0)], with: .automatic)
+        if let index = userMovies.index(of: movie)
+        {
+            performDeletingUserMovie(at: index)
+        }
     }
 }
 
@@ -78,13 +107,13 @@ extension UpcomingMoviesViewController: UITableViewDataSource
 {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     {
-        return Movie.userMovies.count
+        return userMovies.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
     {
         let cell = tableView.dequeueReusableCell(withIdentifier: "UpcomingMovieCell", for: indexPath) as! UpcomingMovieTableViewCell
-        let movie = Movie.userMovies[indexPath.row]
+        let movie = userMovies[indexPath.row]
         cell.movieNameLabel.text = movie.title
         cell.releaseDateLabel.text = movie.prettyDateString
         setCellPosterImage(cell: cell, path: movie.posterPath)
@@ -125,7 +154,7 @@ extension UpcomingMoviesViewController: UITableViewDelegate
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
     {
-        let movie = Movie.userMovies[indexPath.row]
+        let movie = userMovies[indexPath.row]
         performSegue(withIdentifier: "MovieListToMovieDetail", sender: movie)
     }
     
@@ -133,11 +162,53 @@ extension UpcomingMoviesViewController: UITableViewDelegate
     {
         if editingStyle == .delete
         {
-            Movie.userMovies.remove(at: indexPath.row)
-            tableView.deleteRows(at: [indexPath], with: .automatic)
+            performDeletingUserMovie(at: indexPath.row)
         }
     }
 }
+
+// MARK: CoreDataStackDelegate
+
+extension UpcomingMoviesViewController: CoreDataStackDelegate
+{
+    func errorLoadingPersistentContainer(error: NSError)
+    {
+        showAlert(title: "Error loadin data", message: error.localizedDescription)
+    }
+    
+    func errorSaving(error: NSError)
+    {
+        showAlert(title: "Error saving data", message: error.localizedDescription)
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -21,7 +21,7 @@ extension UserMovie
     @NSManaged public var id: Int32
     @NSManaged public var title: String
     @NSManaged public var posterPath: String
-    @NSManaged public var genres: NSObject
+    @NSManaged public var genres: NSArray
     @NSManaged public var overview: String
     @NSManaged public var releaseDateString: String
     @NSManaged public var smallPoster: NSData?
