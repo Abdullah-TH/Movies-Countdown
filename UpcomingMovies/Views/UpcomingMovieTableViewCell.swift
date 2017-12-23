@@ -22,6 +22,8 @@ class UpcomingMovieTableViewCell: UITableViewCell
     {
         super.prepareForReuse()
         posterImageView.image = #imageLiteral(resourceName: "default-image-small")
+        untilOrSinceLabel.isHidden = false
+        countDownLabelTopConstraint.constant = 8
     }
     
 }
