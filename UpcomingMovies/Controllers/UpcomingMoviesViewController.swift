@@ -14,6 +14,7 @@ class UpcomingMoviesViewController: UIViewController
     // MARK: Outlets
     
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet var noMoviesView: UIView!
     
     // MARK: Properties
     
@@ -50,6 +51,8 @@ class UpcomingMoviesViewController: UIViewController
         {
             tableView.deselectRow(at: selectedIndexPath, animated: true)
         }
+        
+        putOrRemoveNoMoviesView()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?)
@@ -83,13 +86,60 @@ class UpcomingMoviesViewController: UIViewController
         context.delete(movieToDelete)
         cdStack.saveContext()
         tableView.deleteRows(at: [IndexPath(row: index, section: 0)] , with: .automatic)
+        putOrRemoveNoMoviesView()
+    }
+    
+    private func putOrRemoveNoMoviesView()
+    {
+        if userMovies.count == 0
+        {
+            if noMoviesView.superview == nil
+            {
+                view.addSubview(noMoviesView)
+                let topConst = NSLayoutConstraint(item: noMoviesView,
+                                                  attribute: .top,
+                                                  relatedBy: .equal,
+                                                  toItem: view,
+                                                  attribute: .top,
+                                                  multiplier: 1,
+                                                  constant: 0)
+                
+                let bottomConst = NSLayoutConstraint(item: noMoviesView,
+                                                     attribute: .bottom,
+                                                     relatedBy: .equal,
+                                                     toItem: view,
+                                                     attribute: .bottom,
+                                                     multiplier: 1,
+                                                     constant: 0)
+                
+                let leadingConst = NSLayoutConstraint(item: noMoviesView,
+                                                      attribute: .leading,
+                                                      relatedBy: .equal,
+                                                      toItem: view,
+                                                      attribute: .leading,
+                                                      multiplier: 1,
+                                                      constant: 0)
+                
+                let trailingConst = NSLayoutConstraint(item: noMoviesView,
+                                                       attribute: .trailing,
+                                                       relatedBy: .equal,
+                                                       toItem: view,
+                                                       attribute: .trailing,
+                                                       multiplier: 1,
+                                                       constant: 0)
+                
+                topConst.isActive = true
+                bottomConst.isActive = true
+                leadingConst.isActive = true
+                trailingConst.isActive = true
+            }
+        }
+        else
+        {
+            noMoviesView.removeFromSuperview()
+        }
     }
 
-    // MARK: Actions
-    
-    @IBAction func goToSettings(_ sender: UIBarButtonItem)
-    {
-    }
 }
 
 // MARK: MovieDetailDelegate

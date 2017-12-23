@@ -6,6 +6,7 @@
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -17,7 +18,7 @@
         </array>
     </customFonts>
     <scenes>
-        <!--Upcoming-->
+        <!--Upcoming Movies-->
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="UpcomingMoviesViewController" customModule="UpcomingMovies" customModuleProvider="target" sceneMemberID="viewController">
@@ -121,11 +122,10 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Upcoming" id="Dmo-Pp-pAZ">
+                    <navigationItem key="navigationItem" title="Upcoming Movies" id="Dmo-Pp-pAZ">
                         <barButtonItem key="leftBarButtonItem" image="Info" id="FxK-a3-n5p">
                             <color key="tintColor" red="0.72156862749999995" green="0.20392156859999999" blue="0.20392156859999999" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
-                                <action selector="goToSettings:" destination="BYZ-38-t0r" id="CHr-aN-pM6"/>
                                 <segue destination="8YL-cO-7F3" kind="presentation" modalPresentationStyle="overFullScreen" modalTransitionStyle="crossDissolve" id="k80-es-fXI"/>
                             </connections>
                         </barButtonItem>
@@ -137,11 +137,40 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="noMoviesView" destination="m6h-AW-e9y" id="gHa-iz-78d"/>
                         <outlet property="tableView" destination="sey-Iu-ztl" id="2Vv-Rm-iWT"/>
                         <segue destination="Yo3-fy-LX8" kind="show" identifier="MovieListToMovieDetail" id="9ZL-bh-ncH"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                <view contentMode="scaleToFill" id="m6h-AW-e9y" userLabel="NoMoviesView">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You Have No Movies  :(" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="o5U-Y4-eDv">
+                            <rect key="frame" x="46" y="283" width="283" height="34"/>
+                            <fontDescription key="fontDescription" type="system" weight="medium" pointSize="28"/>
+                            <color key="textColor" red="0.46666666666666667" green="0.46666666666666667" blue="0.46666666666666667" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="j9s-qI-83A">
+                            <rect key="frame" x="80" y="346.5" width="214.5" height="41"/>
+                            <string key="text">Tap + above to start adding
+upcoming movies</string>
+                            <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
+                            <color key="textColor" red="0.46666666666666667" green="0.46666666666666667" blue="0.46666666666666667" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" red="0.93333333333333335" green="0.93333333333333335" blue="0.93333333333333335" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstItem="o5U-Y4-eDv" firstAttribute="centerY" secondItem="m6h-AW-e9y" secondAttribute="centerY" multiplier="0.9" id="Ie0-Ab-GHa"/>
+                        <constraint firstItem="j9s-qI-83A" firstAttribute="centerX" secondItem="m6h-AW-e9y" secondAttribute="centerX" id="jZp-Ds-fP0"/>
+                        <constraint firstItem="o5U-Y4-eDv" firstAttribute="centerX" secondItem="m6h-AW-e9y" secondAttribute="centerX" id="lPq-90-j64"/>
+                        <constraint firstItem="j9s-qI-83A" firstAttribute="centerY" secondItem="m6h-AW-e9y" secondAttribute="centerY" multiplier="1.1" id="n4o-3l-2cP"/>
+                    </constraints>
+                    <viewLayoutGuide key="safeArea" id="tDR-C6-ydO"/>
+                </view>
             </objects>
             <point key="canvasLocation" x="165.59999999999999" y="53.523238380809602"/>
         </scene>
@@ -476,7 +505,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Vwd-ME-KbU" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1726" y="484"/>
+            <point key="canvasLocation" x="1943" y="484"/>
         </scene>
         <!--Add Movie-->
         <scene sceneID="cde-PB-fuc">
@@ -575,7 +604,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rJ6-nK-Nqy" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1725.5999999999999" y="-304.4977511244378"/>
+            <point key="canvasLocation" x="2767" y="-305"/>
         </scene>
         <!--Add Movie-->
         <scene sceneID="yXp-t9-iKN">
@@ -679,7 +708,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1Kh-k0-48v" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2311" y="-305"/>
+            <point key="canvasLocation" x="3593" y="-305"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="5Xv-rp-cg1">
@@ -701,7 +730,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Oob-2c-lP7" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-443" y="54"/>
+            <point key="canvasLocation" x="-628" y="54"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="uox-pR-xTo">
@@ -723,7 +752,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IzN-bs-KUK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1135" y="-305"/>
+            <point key="canvasLocation" x="1942" y="-305"/>
         </scene>
         <!--App Info View Controller-->
         <scene sceneID="wwS-cW-g1z">
@@ -830,7 +859,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xcr-rq-Fov" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="654" y="-689"/>
+            <point key="canvasLocation" x="1063" y="-623"/>
         </scene>
     </scenes>
     <resources>
