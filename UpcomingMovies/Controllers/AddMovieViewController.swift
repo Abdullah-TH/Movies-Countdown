@@ -13,6 +13,7 @@ class AddMovieViewController: UIViewController
     // MARK: Outlets
     
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     // MARK: Properties
     
@@ -54,6 +55,8 @@ class AddMovieViewController: UIViewController
     
     private func downloadUpcomingMovies()
     {
+        activityIndicator.startAnimating()
+        
         let today = Date()
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
@@ -75,6 +78,7 @@ class AddMovieViewController: UIViewController
                 self.moviePosters.append(contentsOf: repeatElement(UIImage(named: "default-image-small"), count: movies!.count))
                 DispatchQueue.main.async {
                     self.tableView.reloadData()
+                    self.activityIndicator.stopAnimating()
                 }
             }
         }

@@ -32,6 +32,7 @@ class MovieDetailViewController: UIViewController
     @IBOutlet weak var secondsLabel: UILabel!
     @IBOutlet weak var releaseDateLabel: UILabel!
     @IBOutlet weak var toolbar: UIToolbar!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     // MARK: Properties
     
@@ -155,6 +156,8 @@ class MovieDetailViewController: UIViewController
         }
         else
         {
+            activityIndicator.startAnimating()
+            
             DispatchQueue.global(qos: .userInitiated).async {
                 
                 TheMovieDBAPIManager.downloadMoviePoster(size: .large, path: self.userMovie.posterPath, completion: { (posterImage) in
@@ -162,6 +165,7 @@ class MovieDetailViewController: UIViewController
                     self.userMovie.largePoster = UIImagePNGRepresentation(posterImage!) as NSData?
                     self.cdStack.saveContext()
                     self.backgroundImageView.image = posterImage
+                    self.activityIndicator.stopAnimating()
                 })
             }
         }

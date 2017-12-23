@@ -175,6 +175,10 @@
                                     </barButtonItem>
                                 </items>
                             </toolbar>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="6IK-NS-xc8">
+                                <rect key="frame" x="169" y="315" width="37" height="37"/>
+                                <color key="color" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -182,9 +186,11 @@
                             <constraint firstItem="L2F-ep-liS" firstAttribute="leading" secondItem="hiC-Y6-Dur" secondAttribute="leading" id="6OO-p1-Ypu"/>
                             <constraint firstItem="L2F-ep-liS" firstAttribute="bottom" secondItem="hiC-Y6-Dur" secondAttribute="bottom" id="Eng-ft-a9v"/>
                             <constraint firstItem="L2F-ep-liS" firstAttribute="top" secondItem="hiC-Y6-Dur" secondAttribute="top" id="PzT-lL-dCQ"/>
+                            <constraint firstItem="6IK-NS-xc8" firstAttribute="centerX" secondItem="V11-Zi-k4H" secondAttribute="centerX" id="RlX-I5-Ra5"/>
                             <constraint firstItem="lFQ-Oa-K37" firstAttribute="trailing" secondItem="hiC-Y6-Dur" secondAttribute="trailing" id="ihC-y5-NiA"/>
                             <constraint firstItem="L2F-ep-liS" firstAttribute="trailing" secondItem="hiC-Y6-Dur" secondAttribute="trailing" id="jDW-hi-sER"/>
                             <constraint firstItem="lFQ-Oa-K37" firstAttribute="leading" secondItem="hiC-Y6-Dur" secondAttribute="leading" id="lhg-AW-MdN"/>
+                            <constraint firstItem="6IK-NS-xc8" firstAttribute="centerY" secondItem="V11-Zi-k4H" secondAttribute="centerY" id="wwu-6D-tBQ"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="hiC-Y6-Dur"/>
                     </view>
@@ -196,6 +202,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="activityIndicator" destination="6IK-NS-xc8" id="ui7-3L-QIY"/>
                         <outlet property="backgroundImageView" destination="L2F-ep-liS" id="mag-2i-qUA"/>
                         <outlet property="countdownStackView" destination="N4W-D0-9b5" id="EDZ-Ko-KCG"/>
                         <outlet property="daysLabel" destination="cq4-4B-dP3" id="sPw-vT-aKE"/>
@@ -526,13 +533,19 @@
                                     <outlet property="delegate" destination="gcC-Qq-s18" id="Bro-47-dlR"/>
                                 </connections>
                             </tableView>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="Dg8-k7-4mb">
+                                <rect key="frame" x="169" y="315" width="37" height="37"/>
+                                <color key="color" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="uj5-gx-ETp" firstAttribute="leading" secondItem="9Bz-5Y-1YO" secondAttribute="leading" id="BBm-ew-OLQ"/>
+                            <constraint firstItem="Dg8-k7-4mb" firstAttribute="centerY" secondItem="Dty-YL-XEl" secondAttribute="centerY" id="UGs-7k-dE5"/>
                             <constraint firstItem="uj5-gx-ETp" firstAttribute="trailing" secondItem="9Bz-5Y-1YO" secondAttribute="trailing" id="VtY-5V-7Ja"/>
                             <constraint firstItem="uj5-gx-ETp" firstAttribute="bottom" secondItem="9Bz-5Y-1YO" secondAttribute="bottom" id="aEQ-tK-KsE"/>
                             <constraint firstItem="uj5-gx-ETp" firstAttribute="top" secondItem="Dty-YL-XEl" secondAttribute="top" id="akd-UH-wPp"/>
+                            <constraint firstItem="Dg8-k7-4mb" firstAttribute="centerX" secondItem="Dty-YL-XEl" secondAttribute="centerX" id="dQE-tK-YQD"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="9Bz-5Y-1YO"/>
                     </view>
@@ -545,6 +558,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="activityIndicator" destination="Dg8-k7-4mb" id="xeC-6e-Sfc"/>
                         <outlet property="tableView" destination="uj5-gx-ETp" id="2O5-Q8-haL"/>
                         <segue destination="tgv-6t-8RT" kind="show" identifier="AddMovieToMovieToAdd" id="bA3-sV-JwQ"/>
                     </connections>
