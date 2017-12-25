@@ -88,10 +88,17 @@ class AddMovieViewController: UIViewController
     {
         DispatchQueue.global(qos: .userInitiated).async {
         
-            TheMovieDBAPIManager.downloadMoviePoster(size: .small, path: path, completion: { (posterImage) in
+            TheMovieDBAPIManager.downloadMoviePoster(size: .small, path: path, completion: { (posterImage, error) in
                 
-                self.moviePosters[row] = posterImage
-                cell.posterImageView.image = posterImage
+                if error == nil
+                {
+                    self.moviePosters[row] = posterImage
+                    cell.posterImageView.image = posterImage
+                }
+                else
+                {
+                    self.showAlert(title: "Error downloading poster image", message: error!.localizedDescription)
+                }
             })
         }
     }

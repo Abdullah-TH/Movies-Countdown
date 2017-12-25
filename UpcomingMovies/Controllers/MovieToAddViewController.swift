@@ -70,9 +70,17 @@ class MovieToAddViewController: UIViewController
         posterActivityIndicator.startAnimating()
         DispatchQueue.global(qos: .background).async
         {
-            TheMovieDBAPIManager.downloadMoviePoster(size: .large, path: self.movie.posterPath) { (posterImage) in
+            TheMovieDBAPIManager.downloadMoviePoster(size: .large, path: self.movie.posterPath) { (posterImage, error) in
                 
-                self.moviePosterImageView.image = posterImage
+                if error == nil
+                {
+                    self.moviePosterImageView.image = posterImage
+                }
+                else
+                {
+                    self.showAlert(title: "Error downloading poster image", message: error!.localizedDescription)
+                }
+                
                 self.posterActivityIndicator.stopAnimating()
             }
         }

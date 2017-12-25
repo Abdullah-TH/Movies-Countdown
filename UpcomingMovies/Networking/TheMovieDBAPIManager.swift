@@ -164,7 +164,7 @@ class TheMovieDBAPIManager
         task.resume()
     }
     
-    static func downloadMoviePoster(size: PosterSize, path: String, completion: @escaping (UIImage?) -> ())
+    static func downloadMoviePoster(size: PosterSize, path: String, completion: @escaping (UIImage?, Error?) -> ())
     {
         let sizeString: String
         switch size
@@ -178,11 +178,20 @@ class TheMovieDBAPIManager
         }
         let posterBaseURL = URL(string: "https://image.tmdb.org/t/p/\(sizeString)/")
         let posterURL = posterBaseURL?.appendingPathComponent(path)
-        let posterData = try! Data(contentsOf: posterURL!)
-        let posterImage = UIImage(data: posterData)
-        
-        DispatchQueue.main.async {
-            completion(posterImage)
+        do
+        {
+            let posterData = try Data(contentsOf: posterURL!)
+            let posterImage = UIImage(data: posterData)
+            
+            DispatchQueue.main.async {
+                completion(posterImage, nil)
+            }
+        }
+        catch
+        {
+            DispatchQueue.main.async {
+                completion(nil, error)
+            }
         }
     }
 }

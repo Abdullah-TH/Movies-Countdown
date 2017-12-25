@@ -71,11 +71,18 @@ class UpcomingMoviesViewController: UIViewController
     {
         DispatchQueue.global(qos: .userInitiated).async {
             
-            TheMovieDBAPIManager.downloadMoviePoster(size: .small, path: movie.posterPath, completion: { (posterImage) in
+            TheMovieDBAPIManager.downloadMoviePoster(size: .small, path: movie.posterPath, completion: { (posterImage, error) in
                 
-                movie.smallPoster = UIImagePNGRepresentation(posterImage!) as NSData?
-                self.cdStack.saveContext()
-                cell.posterImageView.image = posterImage
+                if error == nil
+                {
+                    movie.smallPoster = UIImagePNGRepresentation(posterImage!) as NSData?
+                    self.cdStack.saveContext()
+                    cell.posterImageView.image = posterImage
+                }
+                else
+                {
+                    self.showAlert(title: "Error downloading poster image", message: error!.localizedDescription)
+                }
             })
         }
     }

@@ -160,11 +160,19 @@ class MovieDetailViewController: UIViewController
             
             DispatchQueue.global(qos: .userInitiated).async {
                 
-                TheMovieDBAPIManager.downloadMoviePoster(size: .large, path: self.userMovie.posterPath, completion: { (posterImage) in
+                TheMovieDBAPIManager.downloadMoviePoster(size: .large, path: self.userMovie.posterPath, completion: { (posterImage, error)  in
                     
-                    self.userMovie.largePoster = UIImagePNGRepresentation(posterImage!) as NSData?
-                    self.cdStack.saveContext()
-                    self.backgroundImageView.image = posterImage
+                    if error == nil
+                    {
+                        self.userMovie.largePoster = UIImagePNGRepresentation(posterImage!) as NSData?
+                        self.cdStack.saveContext()
+                        self.backgroundImageView.image = posterImage
+                    }
+                    else
+                    {
+                        self.showAlert(title: "Error downloading poster image", message: error!.localizedDescription)
+                    }
+                    
                     self.activityIndicator.stopAnimating()
                 })
             }
