@@ -215,7 +215,7 @@ upcoming movies</string>
                                 <color key="color" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </activityIndicatorView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" red="0.93333333333333335" green="0.93333333333333335" blue="0.93333333333333335" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="lFQ-Oa-K37" firstAttribute="bottom" secondItem="hiC-Y6-Dur" secondAttribute="bottom" id="3HO-BT-hNa"/>
                             <constraint firstItem="L2F-ep-liS" firstAttribute="leading" secondItem="hiC-Y6-Dur" secondAttribute="leading" id="6OO-p1-Ypu"/>
@@ -668,6 +668,10 @@ upcoming movies</string>
                                     <constraint firstAttribute="height" constant="227" id="xEk-tm-R2E"/>
                                 </constraints>
                             </imageView>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="Tx7-9f-ISc">
+                                <rect key="frame" x="73" y="175" width="37" height="37"/>
+                                <color key="color" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" red="0.17254901960784313" green="0.24313725490196078" blue="0.31372549019607843" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -691,6 +695,8 @@ upcoming movies</string>
                             <constraint firstItem="ETD-Ag-fdC" firstAttribute="leading" secondItem="5Bz-vS-Eu4" secondAttribute="trailing" constant="8" id="slV-0K-Igk"/>
                             <constraint firstItem="veC-Dz-MD7" firstAttribute="trailing" secondItem="xf5-UA-LUw" secondAttribute="trailing" constant="16" id="tjU-6W-fpC"/>
                             <constraint firstItem="yvc-bV-MWN" firstAttribute="top" secondItem="veC-Dz-MD7" secondAttribute="top" constant="16" id="uIR-Sf-u3C"/>
+                            <constraint firstItem="Tx7-9f-ISc" firstAttribute="centerY" secondItem="5Bz-vS-Eu4" secondAttribute="centerY" id="weC-Xi-yG0"/>
+                            <constraint firstItem="Tx7-9f-ISc" firstAttribute="centerX" secondItem="5Bz-vS-Eu4" secondAttribute="centerX" id="x3B-lA-Eiv"/>
                             <constraint firstItem="yvc-bV-MWN" firstAttribute="leading" secondItem="5Bz-vS-Eu4" secondAttribute="trailing" constant="8" id="ygc-q4-Mdy"/>
                             <constraint firstItem="24J-rF-ZNA" firstAttribute="top" secondItem="xf5-UA-LUw" secondAttribute="bottom" constant="8" id="yhb-aE-95G"/>
                         </constraints>
@@ -703,6 +709,7 @@ upcoming movies</string>
                         <outlet property="movieNameLabel" destination="yvc-bV-MWN" id="2HV-ph-cVD"/>
                         <outlet property="moviePosterImageView" destination="5Bz-vS-Eu4" id="y5r-fC-pes"/>
                         <outlet property="overviewTextView" destination="24J-rF-ZNA" id="Wrw-rh-RBq"/>
+                        <outlet property="posterActivityIndicator" destination="Tx7-9f-ISc" id="Qxd-Mv-wOk"/>
                         <outlet property="releaseDateLabel" destination="Z3t-4P-DJk" id="c2X-qc-6vt"/>
                     </connections>
                 </viewController>

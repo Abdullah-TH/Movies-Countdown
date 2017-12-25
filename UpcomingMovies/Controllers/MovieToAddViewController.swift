@@ -18,6 +18,7 @@ class MovieToAddViewController: UIViewController
     @IBOutlet weak var releaseDateLabel: UILabel!
     @IBOutlet weak var addButton: UIButton!
     @IBOutlet weak var overviewTextView: UITextView!
+    @IBOutlet weak var posterActivityIndicator: UIActivityIndicatorView!
     
     // MARK: Properties
     
@@ -66,9 +67,14 @@ class MovieToAddViewController: UIViewController
     
     private func setMoviePosterImage(path: String)
     {
-        TheMovieDBAPIManager.downloadMoviePoster(size: .large, path: movie.posterPath) { (posterImage) in
-            
-            self.moviePosterImageView.image = posterImage
+        posterActivityIndicator.startAnimating()
+        DispatchQueue.global(qos: .background).async
+        {
+            TheMovieDBAPIManager.downloadMoviePoster(size: .large, path: self.movie.posterPath) { (posterImage) in
+                
+                self.moviePosterImageView.image = posterImage
+                self.posterActivityIndicator.stopAnimating()
+            }
         }
     }
     
