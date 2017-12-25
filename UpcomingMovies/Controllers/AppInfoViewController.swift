@@ -10,11 +10,6 @@ import UIKit
 
 class AppInfoViewController: UIViewController
 {
-    override func viewDidLoad()
-    {
-        super.viewDidLoad()
-    }
-    
     @IBAction func goBack(_ sender: UIButton)
     {
         dismiss(animated: true, completion: nil)

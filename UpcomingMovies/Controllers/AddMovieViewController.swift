@@ -67,7 +67,8 @@ class AddMovieViewController: UIViewController
             if let error = errorMessage
             {
                 DispatchQueue.main.async {
-                    self.showAlertMessage(title: "Error", message: error)
+                    self.showAlert(title: "Error", message: error)
+                    self.activityIndicator.stopAnimating()
                 }
             }
             else
@@ -101,14 +102,6 @@ class AddMovieViewController: UIViewController
                 }
             })
         }
-    }
-    
-    private func showAlertMessage(title: String?, message: String?)
-    {
-        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        let okAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
-        alertController.addAction(okAction)
-        present(alertController, animated: true, completion: nil)
     }
 
     // MARK: Actions

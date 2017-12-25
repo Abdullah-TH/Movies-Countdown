@@ -279,32 +279,3 @@ extension MovieDetailViewController: CoreDataStackDelegate
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
