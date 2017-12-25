@@ -23,6 +23,7 @@ class MovieToAddViewController: UIViewController
     // MARK: Properties
     
     var movie: Movie!
+    var userMovieToAdd: UserMovie?
     let cdStack = CoreDataStack.shared
     let context = CoreDataStack.shared.persistentContainer.viewContext
     
@@ -90,18 +91,18 @@ class MovieToAddViewController: UIViewController
 
     @IBAction func addMovie(_ sender: UIButton)
     {
-        let userMovie = UserMovie(entity: UserMovie.entity(), insertInto: context)
-        userMovie.id = Int32(movie.id)
-        userMovie.title = movie.title
-        userMovie.posterPath = movie.posterPath
-        userMovie.genres = NSArray(array: movie.genres.map({ NSString(string: $0) }))
-        userMovie.overview = movie.overview
-        userMovie.releaseDate = movie.releaseDate
-        userMovie.isCountdownBottom = true 
+        userMovieToAdd = UserMovie(entity: UserMovie.entity(), insertInto: context)
+        userMovieToAdd?.id = Int32(movie.id)
+        userMovieToAdd?.title = movie.title
+        userMovieToAdd?.posterPath = movie.posterPath
+        userMovieToAdd?.genres = NSArray(array: movie.genres.map({ NSString(string: $0) }))
+        userMovieToAdd?.overview = movie.overview
+        userMovieToAdd?.releaseDate = movie.releaseDate
+        userMovieToAdd?.isCountdownBottom = true
         
         cdStack.saveContext()
         
-        let alertController = UIAlertController(title: nil, message: "\(movie.title) sucessfully added to your list!", preferredStyle: .alert)
+        let alertController = UIAlertController(title: nil, message: "\(movie.title) successfully added to your list!", preferredStyle: .alert)
         let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
         alertController.addAction(okAction)
         present(alertController, animated: true, completion: nil)
@@ -117,7 +118,18 @@ extension MovieToAddViewController: CoreDataStackDelegate
     
     func errorSaving(error: NSError)
     {
-        showAlert(title: "Error saving data", message: error.localizedDescription)
+        if error.code == 133021
+        {
+            showAlert(title: "You already added this movie", message: nil)
+            if let userMovie = userMovieToAdd
+            {
+                context.delete(userMovie)
+            }
+        }
+        else
+        {
+            showAlert(title: "Error saving data", message: error.localizedDescription)
+        }
     }
 }
 
