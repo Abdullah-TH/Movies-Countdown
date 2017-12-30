@@ -20,6 +20,7 @@ Run the project and it should work.
 - select the movie you like and an information screen about the movie you select will appear.
 - if you wish to track the movie tap the add button (a message will appear that your movie added successfully to your list)
 - you can continue browsing and adding more movies, or you can go back to your list of upcoming movies
+- if you go back to 'add movie' screen and wish to reload the downloaded upcoming movies, swipe down on the list, then a refresh animation icon will appear indicating the list will be reloaded.
 - if you go back to your list, you will find the newly added movies on your list
 - you can see to the right of each cell in the list how many days remaining until this movie will be released
 - if a movie will be released today you will see the right box turned to green, and a "Today" text appears
