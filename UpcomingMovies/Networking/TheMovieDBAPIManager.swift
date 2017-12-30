@@ -103,7 +103,8 @@ class TheMovieDBAPIManager
                                               posterPath: posterPath,
                                               genres: movieGenres,
                                               overview: overview,
-                                              releaseDateString: releaseDateString)
+                                              releaseDateString: releaseDateString,
+                                              poster: UIImage(named: "default-image-small"))
                             
                             movies.append(movie)
                         }

@@ -13,13 +13,11 @@ class AddMovieViewController: UIViewController
     // MARK: Outlets
     
     @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView?
     
     // MARK: Properties
     
-    var upcomingMovies = [Movie]()
-    var genres: [[String: Any]]!
-    var moviePosters = [UIImage?]()
+    var refreshControl = UIRefreshControl()
     var currentPage = 1
     var totalPages: Int!
     
@@ -28,7 +26,18 @@ class AddMovieViewController: UIViewController
     override func viewDidLoad()
     {
         super.viewDidLoad()
-        downloadUpcomingMovies()
+        
+        if Movie.moviesToAdd.count == 0
+        {
+            downloadUpcomingMovies()
+        }
+        else
+        {
+            activityIndicator?.removeFromSuperview()
+        }
+        
+        refreshControl.addTarget(self, action: #selector(updateDownloadingMovies), for: .valueChanged)
+        tableView.refreshControl = refreshControl
     }
     
     override func viewWillAppear(_ animated: Bool)
@@ -47,7 +56,7 @@ class AddMovieViewController: UIViewController
         {
             let movieToAddVC = segue.destination as! MovieToAddViewController
             let row = sender as! Int
-            movieToAddVC.movie = upcomingMovies[row]
+            movieToAddVC.movie = Movie.moviesToAdd[row]
         }
     }
     
@@ -55,7 +64,9 @@ class AddMovieViewController: UIViewController
     
     private func downloadUpcomingMovies()
     {
-        activityIndicator.startAnimating()
+        DispatchQueue.main.async {
+            self.activityIndicator?.startAnimating()
+        }
         
         let today = Date()
         let dateFormatter = DateFormatter()
@@ -67,22 +78,39 @@ class AddMovieViewController: UIViewController
             if let error = errorMessage
             {
                 DispatchQueue.main.async {
+                    self.activityIndicator?.stopAnimating()
+                    self.refreshControl.endRefreshing()
                     self.showAlert(title: "Error", message: error)
-                    self.activityIndicator.stopAnimating()
                 }
             }
             else
             {
                 self.totalPages = totalPages
                 self.currentPage += 1
-                self.upcomingMovies.append(contentsOf: movies!)
-                self.moviePosters.append(contentsOf: repeatElement(UIImage(named: "default-image-small"), count: movies!.count))
-                DispatchQueue.main.async {
-                    self.tableView.reloadData()
-                    self.activityIndicator.stopAnimating()
+                Movie.moviesToAdd.append(contentsOf: movies!)
+                
+                if  self.currentPage <= (totalPages ?? 0)
+                {
+                    self.downloadUpcomingMovies()
+                }
+                else
+                {
+                    DispatchQueue.main.async {
+                        self.activityIndicator?.removeFromSuperview()
+                        self.refreshControl.endRefreshing()
+                        self.currentPage = 1
+                        self.tableView.reloadData()
+                    }
                 }
             }
         }
+    }
+    
+    @objc private func updateDownloadingMovies()
+    {
+        Movie.moviesToAdd.removeAll()
+        tableView.reloadData()
+        downloadUpcomingMovies()
     }
     
     private func setCellPosterImage(for row: Int, cell: MovieToAddTableViewCell, path: String)
@@ -93,8 +121,11 @@ class AddMovieViewController: UIViewController
                 
                 if error == nil
                 {
-                    self.moviePosters[row] = posterImage
-                    cell.posterImageView.image = posterImage
+                    Movie.moviesToAdd[row].poster = posterImage
+                    //cell.posterImageView.image = posterImage
+                    let cell = self.tableView.cellForRow(at: IndexPath(row: row, section: 0)) as? MovieToAddTableViewCell
+                    cell?.posterImageView.image = posterImage
+                    
                 }
                 else
                 {
@@ -119,14 +150,14 @@ extension AddMovieViewController: UITableViewDataSource
 {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     {
-        return upcomingMovies.count 
+        return Movie.moviesToAdd.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
     {
         let cell = tableView.dequeueReusableCell(withIdentifier: "MovieToAddCell", for: indexPath) as! MovieToAddTableViewCell
-        let movie = upcomingMovies[indexPath.row]
-        cell.posterImageView.image = moviePosters[indexPath.row]
+        let movie = Movie.moviesToAdd[indexPath.row]
+        cell.posterImageView.image = movie.poster
         cell.movieNameLabel.text = movie.title
         
         cell.genresLabel.text = ""
@@ -142,7 +173,7 @@ extension AddMovieViewController: UITableViewDataSource
             }
         }
         
-        if moviePosters[indexPath.row] == #imageLiteral(resourceName: "default-image-small")
+        if movie.poster == #imageLiteral(resourceName: "default-image-small")
         {
             setCellPosterImage(for: indexPath.row, cell: cell, path: movie.posterPath)
         }
@@ -158,20 +189,10 @@ extension AddMovieViewController: UITableViewDataSource
 
 extension AddMovieViewController: UITableViewDelegate
 {
-    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath)
-    {
-        // Start downloading the next page of movies when the fifth cell, from bottom, is displayed, and if total pages not exceeded
-        if indexPath.row == upcomingMovies.count - 5 && currentPage <= (totalPages ?? 0)
-        {
-            downloadUpcomingMovies()
-        }
-    }
-    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
     {
         performSegue(withIdentifier: "AddMovieToMovieToAdd", sender: indexPath.row)
     }
-    
 }
 
 

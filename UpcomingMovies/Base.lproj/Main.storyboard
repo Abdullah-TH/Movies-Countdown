@@ -571,19 +571,19 @@ upcoming movies</string>
                                     <outlet property="delegate" destination="gcC-Qq-s18" id="Bro-47-dlR"/>
                                 </connections>
                             </tableView>
-                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="Dg8-k7-4mb">
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="xSM-6V-yJw">
                                 <rect key="frame" x="169" y="315" width="37" height="37"/>
-                                <color key="color" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="color" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="uj5-gx-ETp" firstAttribute="leading" secondItem="9Bz-5Y-1YO" secondAttribute="leading" id="BBm-ew-OLQ"/>
-                            <constraint firstItem="Dg8-k7-4mb" firstAttribute="centerY" secondItem="Dty-YL-XEl" secondAttribute="centerY" id="UGs-7k-dE5"/>
+                            <constraint firstItem="xSM-6V-yJw" firstAttribute="centerY" secondItem="Dty-YL-XEl" secondAttribute="centerY" id="FNW-BF-Lua"/>
                             <constraint firstItem="uj5-gx-ETp" firstAttribute="trailing" secondItem="9Bz-5Y-1YO" secondAttribute="trailing" id="VtY-5V-7Ja"/>
                             <constraint firstItem="uj5-gx-ETp" firstAttribute="bottom" secondItem="9Bz-5Y-1YO" secondAttribute="bottom" id="aEQ-tK-KsE"/>
                             <constraint firstItem="uj5-gx-ETp" firstAttribute="top" secondItem="Dty-YL-XEl" secondAttribute="top" id="akd-UH-wPp"/>
-                            <constraint firstItem="Dg8-k7-4mb" firstAttribute="centerX" secondItem="Dty-YL-XEl" secondAttribute="centerX" id="dQE-tK-YQD"/>
+                            <constraint firstItem="xSM-6V-yJw" firstAttribute="centerX" secondItem="Dty-YL-XEl" secondAttribute="centerX" id="qlz-UM-Lgp"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="9Bz-5Y-1YO"/>
                     </view>
@@ -597,14 +597,14 @@ upcoming movies</string>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="activityIndicator" destination="Dg8-k7-4mb" id="xeC-6e-Sfc"/>
+                        <outlet property="activityIndicator" destination="xSM-6V-yJw" id="Pna-eE-AQm"/>
                         <outlet property="tableView" destination="uj5-gx-ETp" id="2O5-Q8-haL"/>
                         <segue destination="tgv-6t-8RT" kind="show" identifier="AddMovieToMovieToAdd" id="bA3-sV-JwQ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rJ6-nK-Nqy" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2767" y="-305"/>
+            <point key="canvasLocation" x="2765.5999999999999" y="-305.39730134932535"/>
         </scene>
         <!--Add Movie-->
         <scene sceneID="yXp-t9-iKN">
